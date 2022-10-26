@@ -11,7 +11,7 @@ function DepartmentList() {
         </div>
         <div className='w-full h-full'>
           <p className='font-bold text-3xl'>Departments</p>
-          <div className='border-2 border-fuchsia-700 mt-5 w-10/12 flex flex-col p-4 gap-4'>
+          <div className='border-2 border-fuchsia-700 mt-5 w-full flex flex-col p-4 gap-4'>
             <p className='absolute top-40 left-45 bg-default px-2'>filters</p>
             <div className='flex gap-6 items-center justify-between'>
               <p>Status</p>
