@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import NavBar from '../components/NavBar';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 function EmployeeList() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.isManager) {
+    } else {
+      navigate('/login');
+    }
+  }, [dispatch, userInfo]);
   return (
     <div>
       <NavBar />
