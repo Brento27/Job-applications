@@ -21,7 +21,7 @@ function App() {
             path='/create-edit/department'
             element={<CreateEditDepartment />}
           />
-          <Route path='/' element={<EmployeeList />} />
+          <Route path='/' element={<Login />} />
         </Routes>
       </Router>
     </>
