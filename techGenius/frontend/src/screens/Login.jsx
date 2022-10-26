@@ -16,7 +16,7 @@ const Login = () => {
   useEffect(() => {
     if (userInfo) {
       if (userInfo.isManager) {
-        navigate('/employeelist');
+        navigate('/employee/list');
       } else {
         navigate('/create-edit/employee');
       }

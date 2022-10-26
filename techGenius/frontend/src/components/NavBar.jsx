@@ -48,10 +48,10 @@ function NavBar() {
                     className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'
                   >
                     <li>
-                      <Link to='/employeelist'>Employee List</Link>
+                      <Link to='/employee/list'>Employee List</Link>
                     </li>
                     <li>
-                      <Link to='/departmentlist'>Department List</Link>
+                      <Link to='/department/list'>Department List</Link>
                     </li>
                   </ul>
                 </div>
