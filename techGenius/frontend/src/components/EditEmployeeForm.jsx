@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  register,
   updateUser,
   updateUserProfile,
+  getUserDetails,
 } from '../actions/userActions';
 
 function EditEmployeeForm() {
@@ -13,6 +13,8 @@ function EditEmployeeForm() {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const userDetails = useSelector((state) => state.userDetails);
 
   const { userId } = useParams();
   const [firstName, setFirstName] = useState('');
@@ -38,10 +40,14 @@ function EditEmployeeForm() {
       dispatch(updateUserProfile());
     }
   };
+
   const cancelHandler = () => {
     navigate('/employee/list');
   };
 
+  useEffect(() => {
+    dispatch(getUserDetails(userId));
+  }, []);
   return (
     <>
       <div>
@@ -50,6 +56,7 @@ function EditEmployeeForm() {
           <input
             type='text'
             value={firstName}
+            placeholder={userDetails.user.firstName}
             onChange={(e) => setFirstName(e.target.value)}
             className='input input-bordered input-accent w-80'
           />
@@ -59,6 +66,7 @@ function EditEmployeeForm() {
           <input
             type='text'
             value={lastName}
+            placeholder={userDetails.user.lastName}
             onChange={(e) => setLastName(e.target.value)}
             className='input input-bordered input-accent w-80'
           />
@@ -67,7 +75,7 @@ function EditEmployeeForm() {
           <p className='text-2xl'>*Telephone Number</p>
           <input
             type='text'
-            placeholder='eg. 0821111111'
+            placeholder={userDetails.user.telephoneNumber}
             value={telephoneNumber}
             onChange={(e) => setTelephoneNumber(e.target.value)}
             className='input input-bordered input-accent w-80'
@@ -77,7 +85,7 @@ function EditEmployeeForm() {
           <p className='text-2xl'>*Email Address</p>
           <input
             type='text'
-            placeholder='eg. test@test.com'
+            placeholder={userDetails.user.email}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className='input input-bordered input-accent w-80'
