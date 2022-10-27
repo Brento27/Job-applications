@@ -1,6 +1,7 @@
 import connectDB from './config/db.js';
 import express from 'express';
 import userRoutes from './routes/userRoutes.js';
+import departmentRoutes from './routes/departmentRoutes.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 
-// app.use('/api/departments', departmentRoutes);
+app.use('/api/departments', departmentRoutes);
 app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 5000;

@@ -19,7 +19,7 @@ function PerPageAndSearch() {
       <div className='flex items-center'>
         <input
           type='text'
-          placeholder='Search'
+          placeholder='Search Firstname'
           className='input input-bordered input-accent'
         />
       </div>

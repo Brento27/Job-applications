@@ -2,14 +2,14 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { listUsers } from '../actions/userActions';
+import { listUsers, updateUser } from '../actions/userActions';
 
 function EmployeeListTable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userList = useSelector((state) => state.userList);
-  const { users } = userList;
+  const { users, loading } = userList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -21,7 +21,32 @@ function EmployeeListTable() {
       navigate('/login');
     }
   }, [dispatch, userInfo]);
-  return (
+
+  // const submitHandler = (e) => {
+  //   const user = e.target.value;
+  //   console.log(user);
+  //   if (user.status === 'active') {
+  //     dispatch(
+  //       updateUser({
+  //         _id: user._id,
+  //         status: 'deactive',
+  //       })
+  //     );
+  //   } else {
+  //     dispatch(
+  //       updateUser({
+  //         _id: user._id,
+  //         status: 'active',
+  //       })
+  //     );
+  //   }
+
+  //   e.preventDefault();
+  // };
+
+  return loading ? (
+    'Loading...'
+  ) : (
     <table className='table w-full'>
       <thead>
         <tr>
@@ -39,9 +64,20 @@ function EmployeeListTable() {
           return (
             <tr>
               <td>
-                <Link to={`/employee/edit/${user._id}`}>
-                  <button className='btn btn-accent'>Edit</button>
-                </Link>
+                <div className='flex gap-2'>
+                  <Link to={`/employee/edit/${user._id}`}>
+                    <button className='btn btn-accent'>Edit</button>
+                  </Link>
+
+                  {/* <button
+                    className='btn btn-secondary'
+                    value={user}
+                    type='submit'
+                    onSubmit={submitHandler}
+                  >
+                    {user.status === 'active' ? 'Deactive' : 'Active'}
+                  </button> */}
+                </div>
               </td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
