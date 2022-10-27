@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import DepartmentListFilter from '../components/DepartmentListFilter';
 import DepartmentListTable from '../components/DepartmentListTable';
 import Menu from '../components/Menu';
@@ -7,6 +10,18 @@ import Pagination from '../components/Pagination';
 import PerPageAndSearch from '../components/PerPageAndSearch';
 
 function DepartmentList() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.isManager) {
+    } else {
+      navigate('/login');
+    }
+  }, [dispatch, userInfo]);
   return (
     <div>
       <NavBar />

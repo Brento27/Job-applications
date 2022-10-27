@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CreateEditDepartment from './screens/CreateEditDepartment';
+import CreateEditDepartment from './screens/EditDepartment';
 import EditEmployee from './screens/EditEmployee';
 import DepartmentList from './screens/DepartmentList';
 import EmployeeList from './screens/EmployeeList';
 import Login from './screens/Login';
 import CreateEmployee from './screens/CreateEmployee';
+import CreateDepartment from './screens/CreateDepartment';
+import EditDepartment from './screens/EditDepartment';
 
 function App() {
   return (
@@ -17,9 +19,10 @@ function App() {
           <Route path='/employee/create' element={<CreateEmployee />} />
           <Route path='/department/list' element={<DepartmentList />} />
           <Route
-            path='/create-edit/department'
-            element={<CreateEditDepartment />}
+            path='/department/edit/:departmentId'
+            element={<EditDepartment />}
           />
+          <Route path='/department/create' element={<CreateDepartment />} />
           <Route path='/' element={<Login />} />
         </Routes>
       </Router>
