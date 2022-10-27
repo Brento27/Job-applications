@@ -15,6 +15,7 @@ function CreateEmployeeForm() {
   const saveHandler = (e) => {
     e.preventDefault();
     dispatch(register(firstName, lastName, telephoneNumber, email));
+    navigate('/employee/list');
   };
   const cancelHandler = () => {
     navigate('/employee/list');

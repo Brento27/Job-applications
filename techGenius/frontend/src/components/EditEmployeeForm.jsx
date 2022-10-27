@@ -15,6 +15,7 @@ function EditEmployeeForm() {
   const { userInfo } = userLogin;
 
   const userDetails = useSelector((state) => state.userDetails);
+  const { user, loading } = userDetails;
 
   const { userId } = useParams();
   const [firstName, setFirstName] = useState('');
@@ -36,8 +37,17 @@ function EditEmployeeForm() {
           status,
         })
       );
-    } else if (userInfo) {
-      dispatch(updateUserProfile());
+    } else if (userInfo._id === userId) {
+      dispatch(
+        updateUserProfile({
+          _id: userId,
+          firstName,
+          lastName,
+          telephoneNumber,
+          email,
+          status,
+        })
+      );
     }
   };
 
@@ -45,10 +55,29 @@ function EditEmployeeForm() {
     navigate('/employee/list');
   };
 
+  const checkUserDetails = async () => {
+    if (userInfo.isManager) {
+      await dispatch(getUserDetails(userId));
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+      setTelephoneNumber(user.telephoneNumber);
+      setEmail(user.email);
+      setStatus(user.status);
+    } else {
+      setFirstName(userInfo.firstName);
+      setLastName(userInfo.lastName);
+      setTelephoneNumber(userInfo.telephoneNumber);
+      setEmail(userInfo.email);
+      setStatus(userInfo.status);
+    }
+  };
+
   useEffect(() => {
-    dispatch(getUserDetails(userId));
-  }, []);
-  return (
+    checkUserDetails();
+  }, [dispatch, user._id]);
+  return loading ? (
+    'Loading...'
+  ) : (
     <>
       <div>
         <div className='mt-6 flex items-center justify-between'>
@@ -56,7 +85,8 @@ function EditEmployeeForm() {
           <input
             type='text'
             value={firstName}
-            placeholder={userDetails.user.firstName}
+            defaultValue={firstName}
+            placeholder={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             className='input input-bordered input-accent w-80'
           />
@@ -66,7 +96,7 @@ function EditEmployeeForm() {
           <input
             type='text'
             value={lastName}
-            placeholder={userDetails.user.lastName}
+            defaultValue={lastName}
             onChange={(e) => setLastName(e.target.value)}
             className='input input-bordered input-accent w-80'
           />
@@ -75,7 +105,7 @@ function EditEmployeeForm() {
           <p className='text-2xl'>*Telephone Number</p>
           <input
             type='text'
-            placeholder={userDetails.user.telephoneNumber}
+            placeholder={telephoneNumber}
             value={telephoneNumber}
             onChange={(e) => setTelephoneNumber(e.target.value)}
             className='input input-bordered input-accent w-80'
@@ -85,7 +115,7 @@ function EditEmployeeForm() {
           <p className='text-2xl'>*Email Address</p>
           <input
             type='text'
-            placeholder={userDetails.user.email}
+            placeholder={email}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className='input input-bordered input-accent w-80'
@@ -93,10 +123,7 @@ function EditEmployeeForm() {
         </div>
         <div className='flex mt-6 items-center justify-between'>
           <p className='text-2xl'>*Manager</p>
-          <select className='select select-accent w-80'>
-            <option selected disabled>
-              -select-
-            </option>
+          <select className='select select-accent w-80' defaultValue={status}>
             <option>(All)</option>
             <option>Deactive Only</option>
           </select>
@@ -106,11 +133,9 @@ function EditEmployeeForm() {
           <select
             className='select select-accent w-80'
             value={status}
+            defaultValue={status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            <option selected disabled>
-              -select- / Active / Deactive
-            </option>
             <option>active</option>
             <option>deactive</option>
           </select>

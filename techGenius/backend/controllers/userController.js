@@ -74,9 +74,11 @@ const getUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     res.json({
       _id: user._id,
-      name: user.name,
+      name: user.firstName,
+      email: user.lastName,
+      telephoneNumber: user.telephoneNumber,
       email: user.email,
-      isAdmin: user.isAdmin,
+      status: user.status,
     });
   } else {
     res.status(404);
@@ -91,19 +93,21 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    user.name = req.body.name || user.name;
+    user.firstName = req.body.firstName || user.firstName;
+    user.lastName = req.body.lastName || user.lastName;
+    user.telephoneNumber = req.body.telephoneNumber || user.telephoneNumber;
     user.email = req.body.email || user.email;
-    if (req.body.password) {
-      user.password = req.body.password;
-    }
+    user.status = req.body.status || user.status;
 
     const updatedUser = await user.save();
 
     res.json({
       _id: updatedUser._id,
-      name: updatedUser.name,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      telephoneNumber: updatedUser.telephoneNumber,
       email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
+      status: updatedUser.status,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -156,17 +160,21 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
-    user.name = req.body.name || user.name;
+    user.firstName = req.body.firstName || user.firstName;
+    user.lastName = req.body.lastName || user.lastName;
+    user.telephoneNumber = req.body.telephoneNumber || user.telephoneNumber;
     user.email = req.body.email || user.email;
-    user.isAdmin = req.body.isAdmin;
+    user.status = req.body.status || user.status;
 
     const updatedUser = await user.save();
 
     res.json({
       _id: updatedUser._id,
-      name: updatedUser.name,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      telephoneNumber: updatedUser.telephoneNumber,
       email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
+      status: updatedUser.status,
     });
   } else {
     res.status(404);

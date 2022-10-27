@@ -18,7 +18,7 @@ const Login = () => {
       if (userInfo.isManager) {
         navigate('/employee/list');
       } else {
-        navigate('/create-edit/employee');
+        navigate(`/employee/edit/${userInfo._id}`);
       }
     }
   }, [userInfo]);

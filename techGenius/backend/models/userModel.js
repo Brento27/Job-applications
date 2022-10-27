@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 const userSchema = mongoose.Schema(
@@ -29,6 +29,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       default: 'Password123#',
+    },
+    manager: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: false,
     },
     isManager: {
       type: Boolean,
