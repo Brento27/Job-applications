@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateDepartmentForm from '../components/CreateDepartmentForm';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
 
@@ -10,7 +11,7 @@ function CreateDepartment() {
         <Menu />
         <div className='w-full h-full'>
           <p className='font-bold text-3xl'>Create Departments</p>
-          <div className='border-2 border-fuchsia-700 mt-2 w-10/12 h-64'></div>
+          <CreateDepartmentForm />
         </div>
       </div>
     </div>

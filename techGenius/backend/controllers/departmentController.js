@@ -6,7 +6,7 @@ import Department from '../models/departmentModel.js';
 // @route   POST /api/departments
 // @access  Public
 const registerDepartment = asyncHandler(async (req, res) => {
-  const { name, managerId, status } = req.body;
+  const { name, managerId, managerName, status } = req.body;
 
   const departmentExists = await Department.findOne({ name });
 
@@ -18,6 +18,7 @@ const registerDepartment = asyncHandler(async (req, res) => {
   const department = await Department.create({
     name,
     managerId,
+    managerName,
     status,
   });
 
@@ -26,6 +27,7 @@ const registerDepartment = asyncHandler(async (req, res) => {
       _id: department._id,
       name: department.name,
       managerId: department.managerId,
+      managerName: department.managerName,
       status: department.status,
     });
   } else {
@@ -80,14 +82,16 @@ const updateDepartment = asyncHandler(async (req, res) => {
   if (department) {
     department.name = req.body.name || department.name;
     department.managerId = req.body.managerId || department.managerId;
+    department.managerName = req.body.managerName || department.managerName;
     department.status = req.body.status || department.status;
 
-    const updatedDepartment = await Department.save();
+    const updatedDepartment = await department.save();
 
     res.json({
       _id: updatedDepartment._id,
       name: updatedDepartment.name,
       managerId: updatedDepartment.managerId,
+      managerName: department.managerName,
       status: updatedDepartment.status,
     });
   } else {

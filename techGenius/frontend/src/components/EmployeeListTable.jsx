@@ -83,7 +83,12 @@ function EmployeeListTable() {
               <td>{user.lastName}</td>
               <td>{user.telephoneNumber}</td>
               <td>{user.email}</td>
-              <td>Manager</td>
+              {user.manager ? (
+                <td>{user.manager.firstName + ' ' + user.manager.lastName}</td>
+              ) : (
+                <td></td>
+              )}
+
               <td>{user.status}</td>
             </tr>
           );

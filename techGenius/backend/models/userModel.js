@@ -31,9 +31,9 @@ const userSchema = mongoose.Schema(
       default: 'Password123#',
     },
     manager: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
+      type: Object,
       required: false,
+      default: null,
     },
     isManager: {
       type: Boolean,

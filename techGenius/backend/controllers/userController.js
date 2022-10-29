@@ -30,8 +30,17 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, telephoneNumber, email, status, password } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    telephoneNumber,
+    email,
+    status,
+    password,
+    manager,
+  } = req.body;
+
+  console.log(manager);
 
   const userExists = await User.findOne({ email });
 
@@ -47,6 +56,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     status,
     password,
+    manager,
   });
 
   if (user) {
@@ -58,6 +68,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       status: user.status,
       isManager: user.isManager,
+      manager: user.manager,
     });
   } else {
     res.status(400);
@@ -79,6 +90,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       telephoneNumber: user.telephoneNumber,
       email: user.email,
       status: user.status,
+      manager: user.manager,
     });
   } else {
     res.status(404);
@@ -98,6 +110,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.telephoneNumber = req.body.telephoneNumber || user.telephoneNumber;
     user.email = req.body.email || user.email;
     user.status = req.body.status || user.status;
+    user.manager = req.body.manager || user.manager;
 
     const updatedUser = await user.save();
 
@@ -108,6 +121,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       telephoneNumber: updatedUser.telephoneNumber,
       email: updatedUser.email,
       status: updatedUser.status,
+      manager: user.manager,
+
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -165,6 +180,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.telephoneNumber = req.body.telephoneNumber || user.telephoneNumber;
     user.email = req.body.email || user.email;
     user.status = req.body.status || user.status;
+    user.manager = req.body.manager || user.manager;
 
     const updatedUser = await user.save();
 
@@ -175,6 +191,7 @@ const updateUser = asyncHandler(async (req, res) => {
       telephoneNumber: updatedUser.telephoneNumber,
       email: updatedUser.email,
       status: updatedUser.status,
+      manager: user.manager,
     });
   } else {
     res.status(404);

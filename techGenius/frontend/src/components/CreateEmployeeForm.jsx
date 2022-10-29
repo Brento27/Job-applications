@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../actions/userActions';
 
 function CreateEmployeeForm() {
@@ -11,10 +11,14 @@ function CreateEmployeeForm() {
   const [lastName, setLastName] = useState('');
   const [telephoneNumber, setTelephoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [manager, setManager] = useState({});
+
+  const userList = useSelector((state) => state.userList);
+  const { users, loading } = userList;
 
   const saveHandler = (e) => {
     e.preventDefault();
-    dispatch(register(firstName, lastName, telephoneNumber, email));
+    dispatch(register(firstName, lastName, telephoneNumber, email, manager));
     navigate('/employee/list');
   };
   const cancelHandler = () => {
@@ -64,12 +68,20 @@ function CreateEmployeeForm() {
         </div>
         <div className='flex mt-6 items-center justify-between'>
           <p className='text-2xl'>*Manager</p>
-          <select className='select select-accent w-80'>
-            <option selected disabled>
-              -select-
-            </option>
-            <option>(All)</option>
-            <option>Deactive Only</option>
+          <select
+            className='select select-accent w-full max-w-xs justify-self-end'
+            onChange={(e) => {
+              setManager(JSON.parse(e.target.value));
+            }}
+          >
+            <option>~Select~</option>
+            {users?.map((user) => {
+              return (
+                <option key={user._id} value={JSON.stringify(user)}>
+                  {user.firstName + ' ' + user.lastName}
+                </option>
+              );
+            })}
           </select>
         </div>
       </div>

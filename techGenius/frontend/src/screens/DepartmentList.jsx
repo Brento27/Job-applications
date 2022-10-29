@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { listDepartments } from '../actions/departmentActions';
 
 import DepartmentListFilter from '../components/DepartmentListFilter';
 import DepartmentListTable from '../components/DepartmentListTable';
@@ -18,6 +19,7 @@ function DepartmentList() {
 
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
+      dispatch(listDepartments());
     } else {
       navigate('/login');
     }

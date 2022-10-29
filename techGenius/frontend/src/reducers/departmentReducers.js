@@ -19,11 +19,11 @@ import {
 export const departmentRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case DEPARTMENT_REGISTER_REQUEST:
-      return { loading: true };
+      return { loadingDepartment: true };
     case DEPARTMENT_REGISTER_SUCCESS:
-      return { loading: false, departmentInfo: action.payload };
+      return { loadingDepartment: false, departmentInfo: action.payload };
     case DEPARTMENT_REGISTER_FAIL:
-      return { loading: false, error: action.payload };
+      return { loadingDepartment: false, error: action.payload };
     default:
       return state;
   }
@@ -35,13 +35,13 @@ export const departmentDetailsReducer = (
 ) => {
   switch (action.type) {
     case DEPARTMENT_DETAILS_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loadingDepartment: true };
     case DEPARTMENT_DETAILS_SUCCESS:
-      return { loading: false, department: action.payload };
+      return { loadingDepartment: false, department: action.payload };
     case DEPARTMENT_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
+      return { loadingDepartment: false, error: action.payload };
     case DEPARTMENT_DETAILS_RESET:
-      return { department: {} };
+      return { loadingDepartment: {} };
     default:
       return state;
   }
@@ -50,11 +50,11 @@ export const departmentDetailsReducer = (
 export const departmentListReducer = (state = { departments: [] }, action) => {
   switch (action.type) {
     case DEPARTMENT_LIST_REQUEST:
-      return { loading: true };
+      return { loadingDepartment: true };
     case DEPARTMENT_LIST_SUCCESS:
-      return { loading: false, departments: action.payload };
+      return { loadingDepartment: false, departments: action.payload };
     case DEPARTMENT_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { loadingDepartment: false, error: action.payload };
     case DEPARTMENT_LIST_RESET:
       return { departments: [] };
     default:
@@ -65,11 +65,11 @@ export const departmentListReducer = (state = { departments: [] }, action) => {
 export const departmentUpdateReducer = (state = { department: {} }, action) => {
   switch (action.type) {
     case DEPARTMENT_UPDATE_REQUEST:
-      return { loading: true };
+      return { loadingDepartment: true };
     case DEPARTMENT_UPDATE_SUCCESS:
-      return { loading: false, success: true };
+      return { loadingDepartment: false, success: true };
     case DEPARTMENT_UPDATE_FAIL:
-      return { loading: false, error: action.payload };
+      return { loadingDepartment: false, error: action.payload };
     case DEPARTMENT_UPDATE_RESET:
       return {
         department: {},

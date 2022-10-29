@@ -11,6 +11,10 @@ const departmentSchema = mongoose.Schema(
       ref: 'user',
       required: true,
     },
+    managerName: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
