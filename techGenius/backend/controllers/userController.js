@@ -181,6 +181,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.status = req.body.status || user.status;
     user.manager = req.body.manager || user.manager;
+    user.isManager = req.body.isManager || user.isManager;
 
     const updatedUser = await user.save();
 
@@ -192,6 +193,7 @@ const updateUser = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       status: updatedUser.status,
       manager: user.manager,
+      isManager: user.isManager,
     });
   } else {
     res.status(404);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../actions/userActions';
@@ -12,18 +12,25 @@ function CreateEmployeeForm() {
   const [telephoneNumber, setTelephoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [manager, setManager] = useState({});
+  const [password, setPassword] = useState('Password123#');
 
   const userList = useSelector((state) => state.userList);
   const { users, loading } = userList;
 
   const saveHandler = (e) => {
     e.preventDefault();
-    dispatch(register(firstName, lastName, telephoneNumber, email, manager));
+    dispatch(
+      register(firstName, lastName, telephoneNumber, email, manager, password)
+    );
     navigate('/employee/list');
   };
   const cancelHandler = () => {
     navigate('/employee/list');
   };
+
+  // useEffect(() => {
+  //   const filteredUsers = users.filter((user) => user.isManager === true);
+  // });
 
   return (
     <>
@@ -75,13 +82,15 @@ function CreateEmployeeForm() {
             }}
           >
             <option>~Select~</option>
-            {users?.map((user) => {
-              return (
-                <option key={user._id} value={JSON.stringify(user)}>
-                  {user.firstName + ' ' + user.lastName}
-                </option>
-              );
-            })}
+            {users
+              ?.filter((user) => user.isManager == true)
+              .map((user) => {
+                return (
+                  <option key={user._id} value={JSON.stringify(user)}>
+                    {user.firstName + ' ' + user.lastName}
+                  </option>
+                );
+              })}
           </select>
         </div>
       </div>

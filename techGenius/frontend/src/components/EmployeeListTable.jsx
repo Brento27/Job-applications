@@ -62,7 +62,7 @@ function EmployeeListTable() {
       <tbody>
         {users?.map((user) => {
           return (
-            <tr>
+            <tr key={user._id}>
               <td>
                 <div className='flex gap-2'>
                   <Link to={`/employee/edit/${user._id}`}>
