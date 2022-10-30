@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { listUsers, updateUser } from '../actions/userActions';
 
 function EmployeeListTable() {
   const dispatch = useDispatch();
@@ -16,11 +15,10 @@ function EmployeeListTable() {
 
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
-      dispatch(listUsers());
     } else {
       navigate('/login');
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo, users]);
 
   // const submitHandler = (e) => {
   //   const user = e.target.value;

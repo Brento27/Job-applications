@@ -28,6 +28,7 @@ function CreateDepartmentForm() {
       updateUser({
         _id: managerId,
         isManager: true,
+        manager: {},
       })
     );
     navigate('/department/list');

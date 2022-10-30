@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema(
     manager: {
       type: Object,
       required: false,
-      default: null,
+      default: {},
     },
     isManager: {
       type: Boolean,

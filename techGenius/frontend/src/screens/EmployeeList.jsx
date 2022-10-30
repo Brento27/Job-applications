@@ -7,6 +7,8 @@ import Pagination from '../components/Pagination';
 import PerPageAndSearch from '../components/PerPageAndSearch';
 import EmployeeListFilter from '../components/EmployeeListFilter';
 import Menu from '../components/Menu';
+import { listUsers } from '../actions/userActions';
+import { listDepartments } from '../actions/departmentActions';
 
 function EmployeeList() {
   const dispatch = useDispatch();
@@ -17,6 +19,8 @@ function EmployeeList() {
 
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
+      dispatch(listUsers());
+      dispatch(listDepartments());
     } else {
       navigate('/login');
     }

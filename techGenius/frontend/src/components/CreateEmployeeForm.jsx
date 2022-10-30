@@ -28,10 +28,6 @@ function CreateEmployeeForm() {
     navigate('/employee/list');
   };
 
-  // useEffect(() => {
-  //   const filteredUsers = users.filter((user) => user.isManager === true);
-  // });
-
   return (
     <>
       <div>

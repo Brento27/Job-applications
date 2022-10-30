@@ -17,7 +17,6 @@ import {
   USER_LIST_FAIL,
   USER_LIST_SUCCESS,
   USER_LIST_REQUEST,
-  USER_LIST_RESET,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
@@ -225,6 +224,68 @@ export const listUsers = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const filterListUsers =
+  (status, department, manager) => async (dispatch, getState) => {
+    let queryString = '';
+
+    if (status === 'all') {
+      status = '';
+    } else {
+      status = 'status=' + status + '&';
+    }
+    if (department == undefined) {
+      department = '';
+    } else {
+      department = 'department=' + department + '&';
+    }
+    if (manager == undefined) {
+      manager = '';
+    } else {
+      manager = 'manager=' + manager;
+    }
+
+    queryString = '?' + status + department + manager;
+
+    console.log(queryString);
+    try {
+      dispatch({
+        type: USER_LIST_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `/api/users/query${queryString}`,
+        config
+      );
+
+      dispatch({
+        type: USER_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout());
+      }
+      dispatch({
+        type: USER_LIST_FAIL,
+        payload: message,
+      });
+    }
+  };
 
 export const deleteUser = (id) => async (dispatch, getState) => {
   try {

@@ -1,5 +1,4 @@
 import asyncHandler from 'express-async-handler';
-import generateToken from '../utils/generateToken.js';
 import Department from '../models/departmentModel.js';
 
 // @desc    Register a new department

@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
+import { manager } from '../middleware/authMiddleware.js';
+import { getDepartmentById } from './departmentController.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -139,6 +141,41 @@ const getUsers = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
+// @desc    Get all users
+// @route   GET /api/users/query
+// @access  Private/Admin
+const getUsersFilter = asyncHandler(async (req, res) => {
+  console.log(req.query.status);
+  console.log(req.query.department);
+  console.log(req.query.manager);
+  let users = [];
+  if (req.query.status || req.query.department || req.query.manager) {
+    users = await User.find({
+      status: req.query.status,
+    });
+
+    // let department = getDepartmentById(req.query.department);
+
+    // if (department) {
+    //   let departmentManager = await User.findById(department.managerId);
+    //   users = users.filter(
+    //     (user) => user.manager._id == departmentManager._id || user._id
+    //   );
+    // }
+
+    let manager = await User.findById(req.query.manager);
+
+    if (manager) {
+      users = users.filter((user) => user.isManager === false);
+      users = users.filter((user) => user.manager._id == manager._id);
+      console.log(users);
+    }
+  } else {
+    users = await User.find({});
+  }
+  res.json(users);
+});
+
 // @desc    Delete user
 // @route   DELETE /api/users/:id
 // @access  Private/Admin
@@ -210,4 +247,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  getUsersFilter,
 };
