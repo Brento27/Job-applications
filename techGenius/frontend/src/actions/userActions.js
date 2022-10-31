@@ -229,26 +229,32 @@ export const listUsers = () => async (dispatch, getState) => {
 };
 
 export const filterListUsers =
-  (status, department, manager) => async (dispatch, getState) => {
+  (status = '', department = '', manager = '', search = '') =>
+  async (dispatch, getState) => {
     let queryString = '';
 
-    if (status === 'all') {
+    if (status === '' || status === 'all') {
       status = '';
     } else {
       status = 'status=' + status + '&';
     }
-    if (department == undefined) {
+    if (department === '' || department === unde) {
       department = '';
     } else {
-      department = 'department=' + department + '&';
+      department = 'departmentid=' + department + '&';
     }
-    if (manager == undefined) {
+    if (manager === '') {
       manager = '';
     } else {
-      manager = 'manager=' + manager;
+      manager = 'managerid=' + manager + '&';
+    }
+    if (search === '') {
+      search = '';
+    } else {
+      search = 'search=' + search;
     }
 
-    queryString = '?' + status + department + manager;
+    queryString = '?' + status + department + manager + search;
 
     console.log(queryString);
     try {
