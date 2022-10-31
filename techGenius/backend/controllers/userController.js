@@ -155,9 +155,9 @@ const getUsersFilter = asyncHandler(async (req, res) => {
   if (status || departmentid || managerid || search) {
     if (status && departmentid && managerid) {
       users = await User.find({
-        status: status || null,
-        'department._id': departmentid || null,
-        'department.manager._id': managerid || null,
+        status: status,
+        'department._id': departmentid,
+        'department.manager._id': managerid,
       });
     } else if (status && departmentid) {
       users = await User.find({
@@ -248,6 +248,8 @@ const updateUser = asyncHandler(async (req, res) => {
     user.status = req.body.status || user.status;
     user.department = req.body.department || user.department;
     user.isManager = req.body.isManager || user.isManager;
+
+    console.log(req.body.department);
 
     const updatedUser = await user.save();
 
