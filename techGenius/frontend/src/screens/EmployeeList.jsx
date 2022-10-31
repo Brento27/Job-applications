@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import EmployeeListTable from '../components/EmployeeListTable';
 import Pagination from '../components/Pagination';
-import PerPageAndSearch from '../components/PerPageAndSearch';
 import EmployeeListFilter from '../components/EmployeeListFilter';
 import Menu from '../components/Menu';
 import { filterListUsers, listUsers } from '../actions/userActions';
@@ -34,7 +33,7 @@ function EmployeeList() {
         <div className='w-full'>
           <p className='font-bold text-3xl'>Employees</p>
           <EmployeeListFilter />
-          <PerPageAndSearch />
+
           <div className='overflow-x-auto mt-4'>
             <EmployeeListTable />
           </div>

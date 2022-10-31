@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterListUsers } from '../actions/userActions';
 
-function PerPageAndSearch() {
+function PerPageAndSearchDepartment() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
   const searchHandler = () => {
@@ -59,4 +59,4 @@ function PerPageAndSearch() {
   );
 }
 
-export default PerPageAndSearch;
+export default PerPageAndSearchDepartment;

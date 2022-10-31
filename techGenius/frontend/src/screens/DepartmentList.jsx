@@ -7,7 +7,7 @@ import DepartmentListTable from '../components/DepartmentListTable';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
 import Pagination from '../components/Pagination';
-import PerPageAndSearch from '../components/PerPageAndSearch';
+import PerPageAndSearchDepartment from '../components/PerPageAndSearchDepartment';
 
 function DepartmentList() {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function DepartmentList() {
         <div className='w-full h-full'>
           <p className='font-bold text-3xl'>Departments</p>
           <DepartmentListFilter />
-          <PerPageAndSearch />
+          <PerPageAndSearchDepartment />
           <DepartmentListTable />
           <Pagination />
         </div>
