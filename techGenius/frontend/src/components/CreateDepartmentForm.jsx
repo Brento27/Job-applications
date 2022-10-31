@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerDepartment } from '../actions/departmentActions';
+import { updateUser } from '../actions/userActions';
 
 function CreateDepartmentForm() {
   const navigate = useNavigate();
@@ -12,11 +13,19 @@ function CreateDepartmentForm() {
 
   const userList = useSelector((state) => state.userList);
   const { users, loading } = userList;
+  const departmentRegister = useSelector((state) => state.departmentRegister);
+  const { departmentInfo } = departmentRegister;
 
   const saveHandler = (e) => {
     e.preventDefault();
     dispatch(registerDepartment(name, manager));
-
+    dispatch(
+      updateUser({
+        _id: manager._id,
+        isManager: true,
+        department: departmentInfo,
+      })
+    );
     navigate('/department/list');
   };
   const cancelHandler = () => {

@@ -81,7 +81,7 @@ function EmployeeListTable() {
               <td>{user.lastName}</td>
               <td>{user.telephoneNumber}</td>
               <td>{user.email}</td>
-              {user.department.manager._id !== user._id ? (
+              {/* {user.department.manager._id !== user._id ? (
                 <td>
                   {user.department.manager.firstName +
                     ' ' +
@@ -89,7 +89,7 @@ function EmployeeListTable() {
                 </td>
               ) : (
                 <td></td>
-              )}
+              )} */}
               <td>{user.status}</td>
             </tr>
           );

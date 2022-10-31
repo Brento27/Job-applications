@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler';
 import Department from '../models/departmentModel.js';
-import User from '../models/userModel.js';
 
 // @desc    Register a new department
 // @route   POST /api/departments
@@ -9,8 +8,6 @@ const registerDepartment = asyncHandler(async (req, res) => {
   const { name, manager, status } = req.body;
 
   const departmentExists = await Department.findOne({ name });
-
-  const updatedManager = await User.findById(manager._id);
 
   if (departmentExists) {
     res.status(400);
@@ -22,19 +19,6 @@ const registerDepartment = asyncHandler(async (req, res) => {
     manager,
     status,
   });
-
-  if (updatedManager) {
-    updatedManager._id = updatedManager._id;
-    updatedManager.firstName = updatedManager.firstName;
-    updatedManager.lastName = updatedManager.lastName;
-    updatedManager.telephoneNumber = updatedManager.telephoneNumber;
-    updatedManager.email = updatedManager.email;
-    updatedManager.status = updatedManager.status;
-    updatedManager.department = department;
-    updatedManager.isManager = true;
-
-    await updatedManager.save();
-  }
 
   if (department) {
     res.status(201).json({
