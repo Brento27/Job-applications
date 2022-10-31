@@ -21,7 +21,7 @@ function EmployeeList() {
     if (userInfo && userInfo.isManager) {
       dispatch(listUsers());
       dispatch(listDepartments());
-      dispatch(filterListUsers);
+      dispatch(filterListUsers());
     } else {
       navigate('/login');
     }

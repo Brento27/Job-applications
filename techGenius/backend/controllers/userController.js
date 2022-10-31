@@ -3,6 +3,7 @@ import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
 import { manager } from '../middleware/authMiddleware.js';
 import { getDepartmentById } from './departmentController.js';
+import Department from '../models/departmentModel.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -144,36 +145,43 @@ const getUsers = asyncHandler(async (req, res) => {
 // @route   GET /api/users/query
 // @access  Private/Admin
 const getUsersFilter = asyncHandler(async (req, res) => {
-  console.log(req.query.status);
-  console.log(req.query.department);
-  console.log(req.query.manager);
-  let users = [];
-  if (req.query.status || req.query.department || req.query.manager) {
-    users = await User.find({
-      status: req.query.status,
-    });
+  const { status, departmentid, managerid, search } = req.query;
 
-    // let department = getDepartmentById(req.query.department);
+  const pageSize = Number(req.query.pageSize) || 2;
+  const page = Number(req.query.pageNumber) || 1;
 
-    // if (department) {
-    //   let departmentManager = await User.findById(department.managerId);
-    //   users = users.filter(
-    //     (user) => user.manager._id == departmentManager._id || user._id
-    //   );
-    // }
+  if (status || departmentid || managerid || search) {
+    if (search) {
+      const keyword = search;
+      const regex = new RegExp(keyword, 'i');
 
-    let manager = await User.findById(req.query.manager);
+      const users = await User.find({ firstName: regex });
+      res.json(users);
+    } else {
+      if (status) {
+      }
 
-    console.log(manager);
-    if (manager) {
-      users = users.filter((user) => user.isManager === false);
-      users = users.filter((user) => user.manager._id == manager._id);
-      console.log(users);
+      if (departmentid) {
+      }
+
+      if (managerid) {
+      }
+
+      console.log(status);
+      console.log(departmentid);
+      console.log(managerid);
+      const users = await User.find({
+        status: status,
+        'department._id': departmentid,
+        'department.manager._id': managerid,
+      });
+
+      res.json(users);
     }
   } else {
-    users = await User.find({});
+    const users = await User.find();
+    res.json(users);
   }
-  res.json(users);
 });
 
 // @desc    Delete user

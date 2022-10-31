@@ -238,7 +238,7 @@ export const filterListUsers =
     } else {
       status = 'status=' + status + '&';
     }
-    if (department === '' || department === unde) {
+    if (department === '') {
       department = '';
     } else {
       department = 'departmentid=' + department + '&';

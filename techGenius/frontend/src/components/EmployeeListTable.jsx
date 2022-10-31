@@ -7,8 +7,8 @@ function EmployeeListTable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userList = useSelector((state) => state.userList);
-  const { users, loading } = userList;
+  const userFilterList = useSelector((state) => state.userFilterList);
+  const { usersFiltered, loading } = userFilterList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -18,7 +18,7 @@ function EmployeeListTable() {
     } else {
       navigate('/login');
     }
-  }, [dispatch, userInfo, users]);
+  }, [dispatch, userInfo, usersFiltered]);
 
   // const submitHandler = (e) => {
   //   const user = e.target.value;
@@ -58,7 +58,7 @@ function EmployeeListTable() {
         </tr>
       </thead>
       <tbody>
-        {users?.map((user) => {
+        {usersFiltered?.map((user) => {
           return (
             <tr key={user._id}>
               <td>

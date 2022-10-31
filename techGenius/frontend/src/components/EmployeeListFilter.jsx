@@ -16,13 +16,16 @@ function EmployeeListFilter() {
   const userList = useSelector((state) => state.userList);
   const { users } = userList;
 
-  const userFilterList = useSelector((state) => state.userFilterList);
-  const { usersFiltered } = userFilterList;
-
   const filterTable = () => {
     dispatch(
       filterListUsers(activeFilter, departmentFilter._id, managerFilter._id)
     );
+  };
+  const resetTable = () => {
+    setActiveFilter('all');
+    setDepartmentFilter({});
+    setManagerFilter({});
+    dispatch(filterListUsers('all', undefined, undefined));
   };
 
   useEffect(() => {}, [users]);
@@ -81,9 +84,14 @@ function EmployeeListFilter() {
             })}
         </select>
       </div>
-      <button className='btn btn-accent w-24' onClick={filterTable}>
-        Filter
-      </button>
+      <div className='flex justify-between'>
+        <button className='btn btn-accent w-24' onClick={filterTable}>
+          Filter
+        </button>
+        <button className='btn btn-secondary w-24' onClick={resetTable}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 }
