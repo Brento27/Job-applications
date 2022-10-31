@@ -11,6 +11,9 @@ function EditEmployeeForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const departmentList = useSelector((state) => state.departmentList);
+  const { departments } = departmentList;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -23,6 +26,7 @@ function EditEmployeeForm() {
   const [telephoneNumber, setTelephoneNumber] = useState('');
   const [status, setStatus] = useState('');
   const [email, setEmail] = useState('');
+  const [department, setDepartment] = useState({});
 
   const saveHandler = (e) => {
     e.preventDefault();
@@ -35,8 +39,11 @@ function EditEmployeeForm() {
           telephoneNumber,
           email,
           status,
+          department,
         })
       );
+
+      navigate('/employee/list');
     } else if (userInfo._id === userId) {
       dispatch(
         updateUserProfile({
@@ -46,6 +53,7 @@ function EditEmployeeForm() {
           telephoneNumber,
           email,
           status,
+          department,
         })
       );
     }
@@ -63,12 +71,14 @@ function EditEmployeeForm() {
       setTelephoneNumber(user.telephoneNumber);
       setEmail(user.email);
       setStatus(user.status);
+      setDepartment(user.department);
     } else {
       setFirstName(userInfo.firstName);
       setLastName(userInfo.lastName);
       setTelephoneNumber(userInfo.telephoneNumber);
       setEmail(userInfo.email);
       setStatus(userInfo.status);
+      setDepartment(userInfo.department);
     }
   };
 
@@ -122,10 +132,21 @@ function EditEmployeeForm() {
           />
         </div>
         <div className='flex mt-6 items-center justify-between'>
-          <p className='text-2xl'>*Manager</p>
-          <select className='select select-accent w-80' defaultValue={status}>
-            <option>(All)</option>
-            <option>Deactive Only</option>
+          <p className='text-2xl'>*Department</p>
+          <select
+            className='select select-accent w-80'
+            defaultValue={department}
+            onChange={(e) => {
+              setDepartment(JSON.parse(e.target.value));
+            }}
+          >
+            {departments?.map((department) => {
+              return (
+                <option key={department._id} value={JSON.stringify(department)}>
+                  {department.name}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className='flex mt-6 items-center justify-between'>

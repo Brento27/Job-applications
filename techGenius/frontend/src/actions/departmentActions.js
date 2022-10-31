@@ -19,7 +19,7 @@ import {
 import { logout } from './userActions';
 
 export const registerDepartment =
-  (name, managerId, managerName, status) => async (dispatch) => {
+  (name, manager, status) => async (dispatch) => {
     try {
       dispatch({
         type: DEPARTMENT_REGISTER_REQUEST,
@@ -33,7 +33,7 @@ export const registerDepartment =
 
       const { data } = await axios.post(
         '/api/departments',
-        { name, managerId, managerName, status },
+        { name, manager: manager, status },
         config
       );
 

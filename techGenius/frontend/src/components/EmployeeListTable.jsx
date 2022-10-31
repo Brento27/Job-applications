@@ -43,7 +43,7 @@ function EmployeeListTable() {
   // };
 
   return loading ? (
-    'Loading...'
+    <p className='text-4xl mt-40 ml-40'>Loading...</p>
   ) : (
     <table className='table w-full'>
       <thead>
@@ -81,12 +81,15 @@ function EmployeeListTable() {
               <td>{user.lastName}</td>
               <td>{user.telephoneNumber}</td>
               <td>{user.email}</td>
-              {user.manager ? (
-                <td>{user.manager.firstName + ' ' + user.manager.lastName}</td>
+              {user.department.manager._id !== user._id ? (
+                <td>
+                  {user.department.manager.firstName +
+                    ' ' +
+                    user.department.manager.lastName}
+                </td>
               ) : (
                 <td></td>
               )}
-
               <td>{user.status}</td>
             </tr>
           );

@@ -20,6 +20,7 @@ const authUser = asyncHandler(async (req, res) => {
       telephoneNumber: user.telephoneNumber,
       email: user.email,
       isManager: user.isManager,
+      department: user.department,
       token: generateToken(user._id),
     });
   } else {
@@ -39,10 +40,8 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     status,
     password,
-    manager,
+    department,
   } = req.body;
-
-  console.log(manager);
 
   const userExists = await User.findOne({ email });
 
@@ -58,7 +57,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     status,
     password,
-    manager,
+    department,
   });
 
   if (user) {
@@ -70,7 +69,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       status: user.status,
       isManager: user.isManager,
-      manager: user.manager,
+      department: user.department,
     });
   } else {
     res.status(400);
@@ -92,7 +91,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       telephoneNumber: user.telephoneNumber,
       email: user.email,
       status: user.status,
-      manager: user.manager,
+      department: user.department,
     });
   } else {
     res.status(404);
@@ -112,7 +111,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.telephoneNumber = req.body.telephoneNumber || user.telephoneNumber;
     user.email = req.body.email || user.email;
     user.status = req.body.status || user.status;
-    user.manager = req.body.manager || user.manager;
+    user.department = req.body.department || user.department;
 
     const updatedUser = await user.save();
 
@@ -123,7 +122,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       telephoneNumber: updatedUser.telephoneNumber,
       email: updatedUser.email,
       status: updatedUser.status,
-      manager: user.manager,
+      department: user.department,
 
       token: generateToken(updatedUser._id),
     });
@@ -211,13 +210,15 @@ const getUserById = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
+  console.log(req.body.department);
+
   if (user) {
     user.firstName = req.body.firstName || user.firstName;
     user.lastName = req.body.lastName || user.lastName;
     user.telephoneNumber = req.body.telephoneNumber || user.telephoneNumber;
     user.email = req.body.email || user.email;
     user.status = req.body.status || user.status;
-    user.manager = req.body.manager || user.manager;
+    user.department = req.body.department || user.department;
     user.isManager = req.body.isManager || user.isManager;
 
     const updatedUser = await user.save();
@@ -229,7 +230,7 @@ const updateUser = asyncHandler(async (req, res) => {
       telephoneNumber: updatedUser.telephoneNumber,
       email: updatedUser.email,
       status: updatedUser.status,
-      manager: user.manager,
+      department: user.department,
       isManager: user.isManager,
     });
   } else {

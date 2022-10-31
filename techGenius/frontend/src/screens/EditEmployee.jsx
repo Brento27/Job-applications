@@ -1,9 +1,25 @@
-import React from 'react';
-import EditEmployeeForm from '../components/EditEmployeeForm';
+import React, { useEffect } from 'react';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { listUsers } from '../actions/userActions';
+import EditEmployeeForm from '../components/EditEmployeeForm';
 
-function CreateEditEmployee() {
+function EditEmployee() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.isManager) {
+      dispatch(listUsers());
+    } else {
+      navigate('/login');
+    }
+  }, [dispatch, userInfo]);
   return (
     <div>
       <NavBar />
@@ -18,4 +34,4 @@ function CreateEditEmployee() {
   );
 }
 
-export default CreateEditEmployee;
+export default EditEmployee;

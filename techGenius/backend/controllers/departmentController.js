@@ -1,13 +1,16 @@
 import asyncHandler from 'express-async-handler';
 import Department from '../models/departmentModel.js';
+import User from '../models/userModel.js';
 
 // @desc    Register a new department
 // @route   POST /api/departments
 // @access  Public
 const registerDepartment = asyncHandler(async (req, res) => {
-  const { name, managerId, managerName, status } = req.body;
+  const { name, manager, status } = req.body;
 
   const departmentExists = await Department.findOne({ name });
+
+  const updatedManager = await User.findById(manager._id);
 
   if (departmentExists) {
     res.status(400);
@@ -16,17 +19,28 @@ const registerDepartment = asyncHandler(async (req, res) => {
 
   const department = await Department.create({
     name,
-    managerId,
-    managerName,
+    manager,
     status,
   });
+
+  if (updatedManager) {
+    updatedManager._id = updatedManager._id;
+    updatedManager.firstName = updatedManager.firstName;
+    updatedManager.lastName = updatedManager.lastName;
+    updatedManager.telephoneNumber = updatedManager.telephoneNumber;
+    updatedManager.email = updatedManager.email;
+    updatedManager.status = updatedManager.status;
+    updatedManager.department = department;
+    updatedManager.isManager = true;
+
+    await updatedManager.save();
+  }
 
   if (department) {
     res.status(201).json({
       _id: department._id,
       name: department.name,
-      managerId: department.managerId,
-      managerName: department.managerName,
+      mmanager: department.manager,
       status: department.status,
     });
   } else {
@@ -80,8 +94,7 @@ const updateDepartment = asyncHandler(async (req, res) => {
 
   if (department) {
     department.name = req.body.name || department.name;
-    department.managerId = req.body.managerId || department.managerId;
-    department.managerName = req.body.managerName || department.managerName;
+    department.manager = req.body.manager || department.manager;
     department.status = req.body.status || department.status;
 
     const updatedDepartment = await department.save();
@@ -89,8 +102,7 @@ const updateDepartment = asyncHandler(async (req, res) => {
     res.json({
       _id: updatedDepartment._id,
       name: updatedDepartment.name,
-      managerId: updatedDepartment.managerId,
-      managerName: department.managerName,
+      manager: updatedDepartment.manager,
       status: updatedDepartment.status,
     });
   } else {

@@ -6,13 +6,8 @@ const departmentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    managerId: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: true,
-    },
-    managerName: {
-      type: String,
+    manager: {
+      type: Object,
       required: true,
     },
     status: {

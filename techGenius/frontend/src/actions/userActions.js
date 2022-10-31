@@ -67,7 +67,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const register =
-  (firstName, lastName, telephoneNumber, email, manager, password) =>
+  (firstName, lastName, telephoneNumber, email, department, password) =>
   async (dispatch) => {
     try {
       dispatch({
@@ -87,7 +87,7 @@ export const register =
           lastName,
           telephoneNumber,
           email,
-          manager: manager,
+          department: department,
           password,
         },
         config
@@ -215,7 +215,7 @@ export const listUsers = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (message === 'Not authorized as an manager') {
       dispatch(logout());
     }
     dispatch({
@@ -323,6 +323,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 
 export const updateUser = (user) => async (dispatch, getState) => {
   try {
+    console.log(user);
     dispatch({
       type: USER_UPDATE_REQUEST,
     });

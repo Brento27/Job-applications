@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import CreateDepartmentForm from '../components/CreateDepartmentForm';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
+import { listUsers } from '../actions/userActions';
 
 function CreateDepartment() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.isManager) {
+      dispatch(listUsers());
+    } else {
+      navigate('/login');
+    }
+  }, [dispatch, userInfo]);
   return (
     <div>
       <NavBar />

@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema(
       required: true,
       default: 'Password123#',
     },
-    manager: {
+    department: {
       type: Object,
       required: false,
       default: {},

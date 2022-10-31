@@ -11,16 +11,24 @@ function CreateEmployeeForm() {
   const [lastName, setLastName] = useState('');
   const [telephoneNumber, setTelephoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [manager, setManager] = useState({});
+  const [department, setDepartment] = useState({});
+
   const [password, setPassword] = useState('Password123#');
 
-  const userList = useSelector((state) => state.userList);
-  const { users, loading } = userList;
+  const departmentList = useSelector((state) => state.departmentList);
+  const { departments } = departmentList;
 
   const saveHandler = (e) => {
     e.preventDefault();
     dispatch(
-      register(firstName, lastName, telephoneNumber, email, manager, password)
+      register(
+        firstName,
+        lastName,
+        telephoneNumber,
+        email,
+        department,
+        password
+      )
     );
     navigate('/employee/list');
   };
@@ -70,23 +78,21 @@ function CreateEmployeeForm() {
           />
         </div>
         <div className='flex mt-6 items-center justify-between'>
-          <p className='text-2xl'>*Manager</p>
+          <p className='text-2xl'>*Department</p>
           <select
-            className='select select-accent w-full max-w-xs justify-self-end'
+            className='select select-accent w-80'
             onChange={(e) => {
-              setManager(JSON.parse(e.target.value));
+              setDepartment(JSON.parse(e.target.value));
             }}
           >
-            <option>~Select~</option>
-            {users
-              ?.filter((user) => user.isManager == true)
-              .map((user) => {
-                return (
-                  <option key={user._id} value={JSON.stringify(user)}>
-                    {user.firstName + ' ' + user.lastName}
-                  </option>
-                );
-              })}
+            <option value=''>All</option>
+            {departments?.map((department) => {
+              return (
+                <option key={department._id} value={JSON.stringify(department)}>
+                  {department.name}
+                </option>
+              );
+            })}
           </select>
         </div>
       </div>

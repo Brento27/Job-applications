@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 
 function DepartmentListTable() {
   const departmentList = useSelector((state) => state.departmentList);
-  const { departments } = departmentList;
+  const { departments, loadingDepartment } = departmentList;
 
   useEffect(() => {}, departments);
-  return (
+  return loadingDepartment ? (
+    <p className='text-4xl mt-40 ml-40'>Loading...</p>
+  ) : (
     <div className='overflow-x-auto mt-4'>
       <table className='table w-full'>
         <thead>
@@ -31,7 +33,11 @@ function DepartmentListTable() {
                   </div>
                 </td>
                 <td>{department.name}</td>
-                <td>{department.managerName}</td>
+                <td>
+                  {department.manager.firstName +
+                    ' ' +
+                    department.manager.lastName}
+                </td>
                 <td>{department.status}</td>
               </tr>
             );

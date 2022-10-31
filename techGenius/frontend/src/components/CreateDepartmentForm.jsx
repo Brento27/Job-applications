@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerDepartment } from '../actions/departmentActions';
-import { listUsers, updateUser } from '../actions/userActions';
 
 function CreateDepartmentForm() {
   const navigate = useNavigate();
@@ -14,36 +13,15 @@ function CreateDepartmentForm() {
   const userList = useSelector((state) => state.userList);
   const { users, loading } = userList;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   const saveHandler = (e) => {
     e.preventDefault();
-    const managerName = manager.firstName + ' ' + manager.lastName;
-    const managerId = manager._id;
-    console.log(managerId);
-    console.log(manager);
-    dispatch(registerDepartment(name, managerId, managerName));
-    dispatch(
-      updateUser({
-        _id: managerId,
-        isManager: true,
-        manager: {},
-      })
-    );
+    dispatch(registerDepartment(name, manager));
+
     navigate('/department/list');
   };
   const cancelHandler = () => {
     navigate('/department/list');
   };
-
-  useEffect(() => {
-    if (userInfo && userInfo.isManager) {
-      dispatch(listUsers());
-    } else {
-      navigate('/login');
-    }
-  }, [dispatch, userInfo]);
 
   return loading ? (
     <p className='text-4xl mt-40 ml-40'>Loading...</p>
@@ -63,7 +41,7 @@ function CreateDepartmentForm() {
           <p className='text-2xl'>*Manager</p>
           <select
             className='select select-accent w-full max-w-xs justify-self-end'
-            defaultValue={userInfo}
+            defaultValue={manager}
             onChange={(e) => {
               setManager(JSON.parse(e.target.value));
             }}
