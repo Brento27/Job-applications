@@ -147,39 +147,58 @@ const getUsers = asyncHandler(async (req, res) => {
 const getUsersFilter = asyncHandler(async (req, res) => {
   const { status, departmentid, managerid, search } = req.query;
 
+  let users = [];
+
   const pageSize = Number(req.query.pageSize) || 2;
   const page = Number(req.query.pageNumber) || 1;
 
   if (status || departmentid || managerid || search) {
-    if (search) {
-      const keyword = search;
-      const regex = new RegExp(keyword, 'i');
-
-      const users = await User.find({ firstName: regex });
-      res.json(users);
-    } else {
-      if (status) {
-      }
-
-      if (departmentid) {
-      }
-
-      if (managerid) {
-      }
-
-      console.log(status);
-      console.log(departmentid);
-      console.log(managerid);
-      const users = await User.find({
+    if (status && departmentid && managerid) {
+      users = await User.find({
+        status: status || null,
+        'department._id': departmentid || null,
+        'department.manager._id': managerid || null,
+      });
+    } else if (status && departmentid) {
+      users = await User.find({
         status: status,
+        'department._id': departmentid,
+      });
+    } else if (status && managerid) {
+      users = await User.find({
+        status: status,
+        'department.manager._id': managerid,
+      });
+    } else if (departmentid && managerid) {
+      users = await User.find({
         'department._id': departmentid,
         'department.manager._id': managerid,
       });
+    } else if (status) {
+      users = await User.find({
+        status: status,
+      });
+    } else if (managerid) {
+      users = await User.find({
+        'department.manager._id': managerid,
+      });
+    } else if (departmentid) {
+      users = await User.find({
+        'department._id': departmentid,
+      });
+    } else if (search) {
+      const keyword = search;
+      const regex = new RegExp(keyword, 'i');
 
-      res.json(users);
+      users = await User.find({ firstName: regex });
+    } else {
+      users = await User.find();
     }
+
+    res.json(users);
   } else {
-    const users = await User.find();
+    users = await User.find();
+
     res.json(users);
   }
 });
