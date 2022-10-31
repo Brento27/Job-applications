@@ -16,13 +16,16 @@ function EmployeeListFilter() {
   const userList = useSelector((state) => state.userList);
   const { users } = userList;
 
+  const userFilterList = useSelector((state) => state.userFilterList);
+  const { usersFiltered } = userFilterList;
+
   const filterTable = () => {
     dispatch(
       filterListUsers(activeFilter, departmentFilter._id, managerFilter._id)
     );
   };
 
-  useEffect(() => {});
+  useEffect(() => {}, [users]);
 
   return (
     <div className='border-2 border-fuchsia-700 mt-5 w-full h-72 flex flex-col p-4 gap-4'>

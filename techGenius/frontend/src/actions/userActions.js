@@ -23,6 +23,9 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
+  USER_LIST_FILTER_REQUEST,
+  USER_LIST_FILTER_SUCCESS,
+  USER_LIST_FILTER_FAIL,
 } from '../constants/userConstants';
 
 export const login = (email, password) => async (dispatch) => {
@@ -250,7 +253,7 @@ export const filterListUsers =
     console.log(queryString);
     try {
       dispatch({
-        type: USER_LIST_REQUEST,
+        type: USER_LIST_FILTER_REQUEST,
       });
 
       const {
@@ -269,7 +272,7 @@ export const filterListUsers =
       );
 
       dispatch({
-        type: USER_LIST_SUCCESS,
+        type: USER_LIST_FILTER_SUCCESS,
         payload: data,
       });
     } catch (error) {
@@ -281,7 +284,7 @@ export const filterListUsers =
         dispatch(logout());
       }
       dispatch({
-        type: USER_LIST_FAIL,
+        type: USER_LIST_FILTER_FAIL,
         payload: message,
       });
     }

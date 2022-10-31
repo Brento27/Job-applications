@@ -164,6 +164,7 @@ const getUsersFilter = asyncHandler(async (req, res) => {
 
     let manager = await User.findById(req.query.manager);
 
+    console.log(manager);
     if (manager) {
       users = users.filter((user) => user.isManager === false);
       users = users.filter((user) => user.manager._id == manager._id);

@@ -7,7 +7,7 @@ import Pagination from '../components/Pagination';
 import PerPageAndSearch from '../components/PerPageAndSearch';
 import EmployeeListFilter from '../components/EmployeeListFilter';
 import Menu from '../components/Menu';
-import { listUsers } from '../actions/userActions';
+import { filterListUsers, listUsers } from '../actions/userActions';
 import { listDepartments } from '../actions/departmentActions';
 
 function EmployeeList() {
@@ -21,6 +21,7 @@ function EmployeeList() {
     if (userInfo && userInfo.isManager) {
       dispatch(listUsers());
       dispatch(listDepartments());
+      dispatch(filterListUsers);
     } else {
       navigate('/login');
     }
