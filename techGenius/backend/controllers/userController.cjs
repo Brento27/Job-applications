@@ -151,11 +151,18 @@ const getUsersFilter = asyncHandler(async (req, res) => {
 
   if (status || departmentid || managerid || search) {
     if (status && departmentid && managerid) {
-      users = await User.find({
+      const count = await User.count({
         status: status,
         'department._id': departmentid,
         'department.manager._id': managerid,
       });
+      users = await User.find({
+        status: status,
+        'department._id': departmentid,
+        'department.manager._id': managerid,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
     } else if (status && departmentid) {
       users = await User.find({
         status: status,
@@ -196,7 +203,7 @@ const getUsersFilter = asyncHandler(async (req, res) => {
   } else {
     users = await User.find();
 
-    res.json(users);
+    res.json({ users, page, pages: Math.ceil(count / pageSize) });
   }
 });
 
