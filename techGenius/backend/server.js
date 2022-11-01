@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 connectDB();
+const cors = require('cors');
+app.use(cors());
 
 const app = express();
 
