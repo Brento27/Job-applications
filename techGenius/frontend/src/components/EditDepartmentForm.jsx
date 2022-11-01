@@ -9,12 +9,16 @@ function EditDepartmentForm() {
 
   const [name, setName] = useState('');
   const [manager, setManager] = useState({});
+  const [status, setStatus] = useState('');
 
   const userList = useSelector((state) => state.userList);
   const { users, loading } = userList;
 
   const departmentDetails = useSelector((state) => state.departmentDetails);
   const { department, loadingDepartment } = departmentDetails;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const saveHandler = (e) => {
     e.preventDefault();
@@ -24,6 +28,7 @@ function EditDepartmentForm() {
         name,
         _id: department._id,
         managerName,
+        status,
       })
     );
     navigate('/department/list');
@@ -68,6 +73,20 @@ function EditDepartmentForm() {
             })}
           </select>
         </div>
+        {userInfo.isManager && (
+          <div className='flex mt-6 items-center justify-between'>
+            <p className='text-2xl'>*Status</p>
+            <select
+              className='select select-accent w-80'
+              value={status}
+              defaultValue={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option>active</option>
+              <option>deactive</option>
+            </select>
+          </div>
+        )}
       </div>
       <div className='flex justify-end my-4 gap-4'>
         <button className='btn btn-accent' onClick={saveHandler}>

@@ -30,14 +30,9 @@ function PerPageAndSearchDepartment() {
           <input
             type='text'
             placeholder='Search name…'
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
             className='input input-bordered input-accent'
           />
-          <button
-            className='btn btn-square border-1 border-accent'
-            onClick={searchHandler}
-          >
+          <button className='btn btn-square border-1 border-accent'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               className='h-6 w-6'

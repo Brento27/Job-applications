@@ -149,18 +149,20 @@ function EditEmployeeForm() {
             })}
           </select>
         </div>
-        <div className='flex mt-6 items-center justify-between'>
-          <p className='text-2xl'>*Status</p>
-          <select
-            className='select select-accent w-80'
-            value={status}
-            defaultValue={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option>active</option>
-            <option>deactive</option>
-          </select>
-        </div>
+        {userInfo.isManager && (
+          <div className='flex mt-6 items-center justify-between'>
+            <p className='text-2xl'>*Status</p>
+            <select
+              className='select select-accent w-80'
+              value={status}
+              defaultValue={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option>active</option>
+              <option>deactive</option>
+            </select>
+          </div>
+        )}
       </div>
       <div className='flex justify-end my-4 gap-4'>
         <button className='btn btn-accent' onClick={saveHandler}>

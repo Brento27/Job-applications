@@ -45,8 +45,27 @@ const getDepartments = asyncHandler(async (req, res) => {
 // @route   GET /api/departments
 // @access  Private/Admin
 const getDepartmentsFiltered = asyncHandler(async (req, res) => {
-  const departments = await Department.find({});
-  res.json(departments);
+  let pageSize = req.query.pagesize || 10;
+  const page = Number(req.query.pagenumber) || 1;
+  const status = req.query.status;
+
+  if (status) {
+    const count = await Department.count({
+      status: status,
+    });
+    const departments = await Department.find({
+      status: status,
+    })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+    res.json({ departments, page, pages: Math.ceil(count / pageSize) });
+  } else {
+    const count = await Department.count();
+    const departments = await Department.find()
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+    res.json({ departments, page, pages: Math.ceil(count / pageSize) });
+  }
 });
 
 // @desc    Delete department

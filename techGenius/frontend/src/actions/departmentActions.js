@@ -130,7 +130,7 @@ export const listDepartments = () => async (dispatch, getState) => {
   }
 };
 export const listDepartmentsfilter =
-  (currentPage = 1, pageSize = 10, status = 'active') =>
+  (currentPage = 1, pageSize = 10, status = '') =>
   async (dispatch, getState) => {
     try {
       dispatch({

@@ -73,7 +73,12 @@ export const departmentListFilterReducer = (
     case DEPARTMENT_LIST_FILTER_REQUEST:
       return { loadingDepartment: true };
     case DEPARTMENT_LIST_FILTER_SUCCESS:
-      return { loadingDepartment: false, departmentsfiltered: action.payload };
+      return {
+        loadingDepartment: false,
+        departmentsfiltered: action.payload.departments,
+        pages: action.payload.pages,
+        page: action.payload.page,
+      };
     case DEPARTMENT_LIST_FILTER_FAIL:
       return { loadingDepartment: false, error: action.payload };
     case DEPARTMENT_LIST_FILTER_RESET:
