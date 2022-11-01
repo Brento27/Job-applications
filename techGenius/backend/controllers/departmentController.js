@@ -41,6 +41,14 @@ const getDepartments = asyncHandler(async (req, res) => {
   res.json(departments);
 });
 
+// @desc    Get all departments
+// @route   GET /api/departments
+// @access  Private/Admin
+const getDepartmentsFiltered = asyncHandler(async (req, res) => {
+  const departments = await Department.find({});
+  res.json(departments);
+});
+
 // @desc    Delete department
 // @route   DELETE /api/departments/:id
 // @access  Private/Admin
@@ -101,4 +109,5 @@ export {
   deleteDepartment,
   getDepartmentById,
   updateDepartment,
+  getDepartmentsFiltered,
 };

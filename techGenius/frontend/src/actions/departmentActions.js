@@ -11,6 +11,10 @@ import {
   DEPARTMENT_LIST_SUCCESS,
   DEPARTMENT_LIST_FAIL,
   DEPARTMENT_LIST_RESET,
+  DEPARTMENT_LIST_FILTER_REQUEST,
+  DEPARTMENT_LIST_FILTER_SUCCESS,
+  DEPARTMENT_LIST_FILTER_FAIL,
+  DEPARTMENT_LIST_FILTER_RESET,
   DEPARTMENT_UPDATE_REQUEST,
   DEPARTMENT_UPDATE_SUCCESS,
   DEPARTMENT_UPDATE_FAIL,
@@ -125,6 +129,47 @@ export const listDepartments = () => async (dispatch, getState) => {
     });
   }
 };
+export const listDepartmentsfilter =
+  (currentPage = 1, pageSize = 10, status = 'active') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: DEPARTMENT_LIST_FILTER_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `/api/departments/query?currentpage=${currentPage}&pagesize=${pageSize}&status=${status}`,
+        config
+      );
+
+      dispatch({
+        type: DEPARTMENT_LIST_FILTER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout());
+      }
+      dispatch({
+        type: DEPARTMENT_LIST_FILTER_FAIL,
+        payload: message,
+      });
+    }
+  };
 
 export const updateDepartment = (department) => async (dispatch, getState) => {
   try {

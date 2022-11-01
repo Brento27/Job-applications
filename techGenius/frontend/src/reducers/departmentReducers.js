@@ -10,6 +10,10 @@ import {
   DEPARTMENT_LIST_SUCCESS,
   DEPARTMENT_LIST_FAIL,
   DEPARTMENT_LIST_RESET,
+  DEPARTMENT_LIST_FILTER_REQUEST,
+  DEPARTMENT_LIST_FILTER_SUCCESS,
+  DEPARTMENT_LIST_FILTER_FAIL,
+  DEPARTMENT_LIST_FILTER_RESET,
   DEPARTMENT_UPDATE_REQUEST,
   DEPARTMENT_UPDATE_SUCCESS,
   DEPARTMENT_UPDATE_FAIL,
@@ -57,6 +61,23 @@ export const departmentListReducer = (state = { departments: [] }, action) => {
       return { loadingDepartment: false, error: action.payload };
     case DEPARTMENT_LIST_RESET:
       return { departments: [] };
+    default:
+      return state;
+  }
+};
+export const departmentListFilterReducer = (
+  state = { departmentsfiltered: [] },
+  action
+) => {
+  switch (action.type) {
+    case DEPARTMENT_LIST_FILTER_REQUEST:
+      return { loadingDepartment: true };
+    case DEPARTMENT_LIST_FILTER_SUCCESS:
+      return { loadingDepartment: false, departmentsfiltered: action.payload };
+    case DEPARTMENT_LIST_FILTER_FAIL:
+      return { loadingDepartment: false, error: action.payload };
+    case DEPARTMENT_LIST_FILTER_RESET:
+      return { departmentsfiltered: [] };
     default:
       return state;
   }

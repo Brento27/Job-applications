@@ -4,10 +4,12 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function DepartmentListTable() {
-  const departmentList = useSelector((state) => state.departmentList);
-  const { departments, loadingDepartment } = departmentList;
+  const departmentListFilter = useSelector(
+    (state) => state.departmentListFilter
+  );
+  const { departmentsfiltered, loadingDepartment } = departmentListFilter;
 
-  useEffect(() => {}, departments);
+  useEffect(() => {}, departmentsfiltered);
   return loadingDepartment ? (
     <p className='text-4xl mt-40 ml-40'>Loading...</p>
   ) : (
@@ -22,7 +24,7 @@ function DepartmentListTable() {
           </tr>
         </thead>
         <tbody>
-          {departments?.map((department) => {
+          {departmentsfiltered?.map((department) => {
             return (
               <tr key={department._id}>
                 <td>

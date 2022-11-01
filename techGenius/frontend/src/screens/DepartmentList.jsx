@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listDepartments } from '../actions/departmentActions';
+import {
+  listDepartments,
+  listDepartmentsfilter,
+} from '../actions/departmentActions';
 import DepartmentListFilter from '../components/DepartmentListFilter';
 import DepartmentListTable from '../components/DepartmentListTable';
 import Menu from '../components/Menu';
@@ -19,6 +22,7 @@ function DepartmentList() {
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
       dispatch(listDepartments());
+      dispatch(listDepartmentsfilter());
     } else {
       navigate('/login');
     }

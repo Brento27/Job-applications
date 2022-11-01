@@ -29,7 +29,7 @@ function PerPageAndSearchDepartment() {
         <div className='input-group'>
           <input
             type='text'
-            placeholder='Search firstname…'
+            placeholder='Search name…'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className='input input-bordered input-accent'

@@ -18,6 +18,7 @@ import {
   departmentDetailsReducer,
   departmentListReducer,
   departmentUpdateReducer,
+  departmentListFilterReducer,
 } from './reducers/departmentReducers';
 
 const reducer = combineReducers({
@@ -33,6 +34,7 @@ const reducer = combineReducers({
   departmentDetails: departmentDetailsReducer,
   departmentList: departmentListReducer,
   departmentUpdate: departmentUpdateReducer,
+  departmentListFilter: departmentListFilterReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
