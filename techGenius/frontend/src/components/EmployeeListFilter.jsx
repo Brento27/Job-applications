@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterListUsers } from '../actions/userActions';
 import EmployeeListTable from './EmployeeListTable';
-import Pagination from './Pagination';
+import PaginationEmployee from './PaginationEmployee';
 import PerPageAndSearchEmployee from './PerPageAndSearchEmployee';
 
 function EmployeeListFilter() {
@@ -128,7 +128,7 @@ function EmployeeListFilter() {
       <div className='overflow-x-auto mt-4'>
         <EmployeeListTable />
       </div>
-      <Pagination
+      <PaginationEmployee
         selectCurrentPage={(currentPage) => {
           selectCurrentPage(currentPage);
           console.log(currentPage);

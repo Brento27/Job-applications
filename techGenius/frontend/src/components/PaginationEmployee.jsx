@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-function Pagination({ selectCurrentPage }) {
+function PaginationEmployee({ selectCurrentPage }) {
   const userFilterList = useSelector((state) => state.userFilterList);
   const { pages } = userFilterList;
 
@@ -30,4 +30,4 @@ function Pagination({ selectCurrentPage }) {
   );
 }
 
-export default Pagination;
+export default PaginationEmployee;

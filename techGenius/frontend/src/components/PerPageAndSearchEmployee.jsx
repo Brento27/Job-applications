@@ -6,6 +6,7 @@ function PerPageAndSearchEmployee({ selectPageSize }) {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
   const [pageSize, setPageSize] = useState(10);
+
   const searchHandler = () => {
     dispatch(filterListUsers('', pageSize, '', '', '', search));
     setSearch('');

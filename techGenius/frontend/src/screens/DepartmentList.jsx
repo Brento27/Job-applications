@@ -9,7 +9,7 @@ import DepartmentListFilter from '../components/DepartmentListFilter';
 import DepartmentListTable from '../components/DepartmentListTable';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
-import Pagination from '../components/Pagination';
+import Pagination from '../components/PaginationEmployee';
 import PerPageAndSearchDepartment from '../components/PerPageAndSearchDepartment';
 
 function DepartmentList() {
@@ -35,9 +35,6 @@ function DepartmentList() {
         <div className='w-full h-full'>
           <p className='font-bold text-3xl'>Departments</p>
           <DepartmentListFilter />
-          <PerPageAndSearchDepartment />
-          <DepartmentListTable />
-          <Pagination />
         </div>
       </div>
     </div>

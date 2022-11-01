@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CreateEditDepartment from './screens/EditDepartment';
 import EditEmployee from './screens/EditEmployee';
 import DepartmentList from './screens/DepartmentList';
 import EmployeeList from './screens/EmployeeList';

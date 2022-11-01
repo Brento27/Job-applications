@@ -46,25 +46,39 @@ const getDepartments = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const getDepartmentsFiltered = asyncHandler(async (req, res) => {
   let pageSize = req.query.pagesize || 10;
-  const page = Number(req.query.pagenumber) || 1;
+  const page = Number(req.query.currentpage) || 1;
   const status = req.query.status;
+  const search = req.query.search;
 
-  if (status) {
+  console.log(page);
+  if (search) {
+    const regex = new RegExp(search, 'i');
     const count = await Department.count({
-      status: status,
+      name: regex,
     });
-    const departments = await Department.find({
-      status: status,
-    })
+
+    const departments = await Department.find({ name: regex })
       .limit(pageSize)
       .skip(pageSize * (page - 1));
     res.json({ departments, page, pages: Math.ceil(count / pageSize) });
   } else {
-    const count = await Department.count();
-    const departments = await Department.find()
-      .limit(pageSize)
-      .skip(pageSize * (page - 1));
-    res.json({ departments, page, pages: Math.ceil(count / pageSize) });
+    if (status) {
+      const count = await Department.count({
+        status: status,
+      });
+      const departments = await Department.find({
+        status: status,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ departments, page, pages: Math.ceil(count / pageSize) });
+    } else {
+      const count = await Department.count();
+      const departments = await Department.find()
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ departments, page, pages: Math.ceil(count / pageSize) });
+    }
   }
 });
 

@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listUsers } from '../actions/userActions';
 import EditEmployeeForm from '../components/EditEmployeeForm';
+import { listDepartments } from '../actions/departmentActions';
 
 function EditEmployee() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo && userInfo.isManager) {
-      dispatch(listUsers());
-    } else {
-      navigate('/login');
-    }
+    dispatch(listDepartments());
   }, [dispatch, userInfo]);
   return (
     <div>

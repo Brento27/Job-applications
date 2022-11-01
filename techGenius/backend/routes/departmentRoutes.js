@@ -10,11 +10,8 @@ import {
 } from '../controllers/departmentController.js';
 import { protect, manager } from '../middleware/authMiddleware.js';
 
-router
-  .route('/')
-  .post(registerDepartment)
-  .get(protect, manager, getDepartments);
-router.get('/query', protect, manager, getDepartmentsFiltered);
+router.route('/').post(registerDepartment).get(protect, getDepartments);
+router.get('/query', protect, getDepartmentsFiltered);
 
 router
   .route('/:id')
