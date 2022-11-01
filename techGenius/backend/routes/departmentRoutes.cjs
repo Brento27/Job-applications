@@ -6,8 +6,8 @@ import {
   deleteDepartment,
   getDepartmentById,
   updateDepartment,
-} from '../controllers/departmentController.js';
-import { protect, manager } from '../middleware/authMiddleware.js';
+} from '../controllers/departmentController.cjs';
+import { protect, manager } from '../middleware/authMiddleware.cjs';
 
 router
   .route('/')
