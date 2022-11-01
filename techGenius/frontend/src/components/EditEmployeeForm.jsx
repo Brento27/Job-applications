@@ -29,33 +29,37 @@ function EditEmployeeForm() {
   const [department, setDepartment] = useState({});
 
   const saveHandler = (e) => {
-    e.preventDefault();
-    if (userInfo.isManager) {
-      dispatch(
-        updateUser({
-          _id: userId,
-          firstName,
-          lastName,
-          telephoneNumber,
-          email,
-          status,
-          department,
-        })
-      );
+    try {
+      e.preventDefault();
+      if (userInfo.isManager) {
+        dispatch(
+          updateUser({
+            _id: userId,
+            firstName,
+            lastName,
+            telephoneNumber,
+            email,
+            status,
+            department,
+          })
+        );
 
-      navigate('/employee/list');
-    } else if (userInfo._id === userId) {
-      dispatch(
-        updateUserProfile({
-          _id: userId,
-          firstName,
-          lastName,
-          telephoneNumber,
-          email,
-          status,
-          department,
-        })
-      );
+        navigate('/employee/list');
+      } else if (userInfo._id === userId) {
+        dispatch(
+          updateUserProfile({
+            _id: userId,
+            firstName,
+            lastName,
+            telephoneNumber,
+            email,
+            status,
+            department,
+          })
+        );
+      }
+    } catch (error) {
+      console.error();
     }
   };
 

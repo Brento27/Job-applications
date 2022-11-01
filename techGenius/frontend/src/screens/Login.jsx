@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo, error } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
@@ -24,8 +24,12 @@ const Login = () => {
   }, [userInfo]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login(email, password));
+    try {
+      e.preventDefault();
+      dispatch(login(email, password));
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className='border-2 border-fuchsia-700 m-8 h-fit'>
@@ -56,6 +60,9 @@ const Login = () => {
             className='input input-bordered input-accent w-full max-w-2xl'
           />
         </div>
+        {error && (
+          <div className='mb-4'>{error} (Invalid email or password)</div>
+        )}
         <button className='btn btn-accent px-36' onClick={submitHandler}>
           Login
         </button>
