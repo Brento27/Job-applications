@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
-import generateToken from '../utils/generateToken.cjs';
-import User from '../models/userModel.cjs';
+import generateToken from '../utils/generateToken.js';
+import User from '../models/userModel.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -146,10 +146,13 @@ const getUsersFilter = asyncHandler(async (req, res) => {
 
   let users = [];
 
-  const pageSize = Number(req.query.pageSize) || 2;
-  const page = Number(req.query.pageNumber) || 1;
+  let pageSize = req.query.pagesize || 10;
+  const page = Number(req.query.pagenumber) || 1;
+
+  if (pageSize === 'all') pageSize = 999999;
 
   if (status || departmentid || managerid || search) {
+    console.log('in if');
     if (status && departmentid && managerid) {
       const count = await User.count({
         status: status,
@@ -163,45 +166,102 @@ const getUsersFilter = asyncHandler(async (req, res) => {
       })
         .limit(pageSize)
         .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
     } else if (status && departmentid) {
-      users = await User.find({
+      const count = await User.count({
         status: status,
         'department._id': departmentid,
       });
+      users = await User.find({
+        status: status,
+        'department._id': departmentid,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
     } else if (status && managerid) {
-      users = await User.find({
+      const count = await User.count({
         status: status,
         'department.manager._id': managerid,
       });
+      users = await User.find({
+        status: status,
+        'department.manager._id': managerid,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
     } else if (departmentid && managerid) {
-      users = await User.find({
+      const count = await User.count({
         'department._id': departmentid,
         'department.manager._id': managerid,
       });
-    } else if (status) {
       users = await User.find({
+        'department._id': departmentid,
+        'department.manager._id': managerid,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
+    } else if (status) {
+      const count = await User.count({
         status: status,
       });
-    } else if (managerid) {
       users = await User.find({
+        status: status,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
+    } else if (managerid) {
+      const count = await User.count({
         'department.manager._id': managerid,
       });
-    } else if (departmentid) {
       users = await User.find({
+        'department.manager._id': managerid,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
+    } else if (departmentid) {
+      const count = await User.count({
         'department._id': departmentid,
       });
+      users = await User.find({
+        'department._id': departmentid,
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
     } else if (search) {
       const keyword = search;
       const regex = new RegExp(keyword, 'i');
+      const count = await User.count({
+        firstName: regex,
+      });
 
-      users = await User.find({ firstName: regex });
+      users = await User.find({ firstName: regex })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
     } else {
-      users = await User.find();
+      const count = await User.count();
+      users = await User.find()
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+      res.json({ users, page, pages: Math.ceil(count / pageSize) });
     }
 
     res.json(users);
   } else {
-    users = await User.find();
+    console.log('in else');
+    console.log(page);
+
+    const count = await User.count();
+
+    users = await User.find()
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
 
     res.json({ users, page, pages: Math.ceil(count / pageSize) });
   }

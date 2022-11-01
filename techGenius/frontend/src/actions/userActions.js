@@ -229,34 +229,15 @@ export const listUsers = () => async (dispatch, getState) => {
 };
 
 export const filterListUsers =
-  (status = '', department = '', manager = '', search = '') =>
+  (
+    pageNumber = 1,
+    pageSize = 10,
+    status = '',
+    department = '',
+    manager = '',
+    search = ''
+  ) =>
   async (dispatch, getState) => {
-    let queryString = '';
-
-    if (status === '' || status === 'all') {
-      status = '';
-    } else {
-      status = 'status=' + status + '&';
-    }
-    if (department === '') {
-      department = '';
-    } else {
-      department = 'departmentid=' + department + '&';
-    }
-    if (manager === '') {
-      manager = '';
-    } else {
-      manager = 'managerid=' + manager + '&';
-    }
-    if (search === '') {
-      search = '';
-    } else {
-      search = 'search=' + search;
-    }
-
-    queryString = '?' + status + department + manager + search;
-
-    console.log(queryString);
     try {
       dispatch({
         type: USER_LIST_FILTER_REQUEST,
@@ -273,10 +254,9 @@ export const filterListUsers =
       };
 
       const { data } = await axios.get(
-        `/api/users/query${queryString}`,
+        `/api/users/query?status=${status}&departmentid=${department}&managerid=${manager}&pagenumber=${pageNumber}&pagesize=${pageSize}&search=${search}`,
         config
       );
-
       dispatch({
         type: USER_LIST_FILTER_SUCCESS,
         payload: data,

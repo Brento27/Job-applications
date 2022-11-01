@@ -1,15 +1,15 @@
-import connectDB from './config/db.cjs';
+import connectDB from './config/db.js';
 import express from 'express';
-import userRoutes from './routes/userRoutes.cjs';
-import departmentRoutes from './routes/departmentRoutes.cjs';
+import userRoutes from './routes/userRoutes.js';
+import departmentRoutes from './routes/departmentRoutes.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
 connectDB();
 
 const app = express();
-const cors = require('cors');
 app.use(cors());
 
 app.use(express.json());

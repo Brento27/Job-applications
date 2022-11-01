@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterListUsers } from '../actions/userActions';
+import EmployeeListTable from './EmployeeListTable';
+import Pagination from './Pagination';
 import PerPageAndSearchEmployee from './PerPageAndSearchEmployee';
 
 function EmployeeListFilter() {
   const dispatch = useDispatch();
 
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [departmentFilter, setDepartmentFilter] = useState({});
-  const [managerFilter, setManagerFilter] = useState({});
+  const [activeFilter, setActiveFilter] = useState('');
+  const [departmentFilter, setDepartmentFilter] = useState({ _id: '' });
+  const [managerFilter, setManagerFilter] = useState({ _id: '' });
+  const [pageSizeFilter, setPageSizeFilter] = useState(10);
+  const [currentPageFilter, setCurrentPageFilter] = useState(1);
 
   const departmentList = useSelector((state) => state.departmentList);
   const { departments } = departmentList;
@@ -22,14 +26,34 @@ function EmployeeListFilter() {
 
   const filterTable = () => {
     dispatch(
-      filterListUsers(activeFilter, departmentFilter._id, managerFilter._id)
+      filterListUsers(
+        1,
+        pageSizeFilter,
+        activeFilter,
+        departmentFilter._id,
+        managerFilter._id
+      )
     );
   };
   const resetTable = () => {
-    setActiveFilter('all');
+    setActiveFilter('');
     setDepartmentFilter({});
     setManagerFilter({});
-    dispatch(filterListUsers('all', undefined, undefined));
+    dispatch(filterListUsers());
+  };
+
+  const selectCurrentPage = (currentPage) => {
+    setCurrentPageFilter(currentPage);
+
+    dispatch(
+      filterListUsers(
+        currentPage,
+        pageSizeFilter,
+        activeFilter,
+        departmentFilter._id,
+        managerFilter._id
+      )
+    );
   };
 
   useEffect(() => {}, [users, usersFiltered]);
@@ -98,7 +122,18 @@ function EmployeeListFilter() {
           </button>
         </div>
       </div>
-      <PerPageAndSearchEmployee />
+      <PerPageAndSearchEmployee
+        selectPageSize={(pageSize) => setPageSizeFilter(pageSize)}
+      />
+      <div className='overflow-x-auto mt-4'>
+        <EmployeeListTable />
+      </div>
+      <Pagination
+        selectCurrentPage={(currentPage) => {
+          selectCurrentPage(currentPage);
+          console.log(currentPage);
+        }}
+      />
     </>
   );
 }

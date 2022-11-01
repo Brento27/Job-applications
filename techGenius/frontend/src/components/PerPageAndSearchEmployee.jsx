@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterListUsers } from '../actions/userActions';
 
-function PerPageAndSearchEmployee() {
+function PerPageAndSearchEmployee({ selectPageSize }) {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
-  const [pagination, setPagination] = useState(10);
+  const [pageSize, setPageSize] = useState(10);
   const searchHandler = () => {
-    console.log(search);
-    dispatch(filterListUsers('', '', '', search));
+    dispatch(filterListUsers('', pageSize, '', '', '', search));
     setSearch('');
+  };
+
+  const handleChange = (e) => {
+    setPageSize(e.target.value);
+    selectPageSize(e.target.value);
   };
   return (
     <div className='flex justify-between mt-4'>
@@ -19,9 +23,12 @@ function PerPageAndSearchEmployee() {
           className='select select-accent'
           defaultValue={10}
           onChange={(e) => {
-            setPagination(e.target.value);
+            handleChange(e);
           }}
         >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={5}>5</option>
           <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={50}>50</option>

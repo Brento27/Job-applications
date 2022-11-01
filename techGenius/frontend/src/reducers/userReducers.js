@@ -113,9 +113,14 @@ export const userListFilterReducer = (
     case USER_LIST_FILTER_REQUEST:
       return { loading: true };
     case USER_LIST_FILTER_SUCCESS:
-      return { loading: false, usersFiltered: action.payload };
+      return {
+        usersFiltered: action.payload.users,
+        pages: action.payload.pages,
+        page: action.payload.page,
+        loading: false,
+      };
     case USER_LIST_FILTER_FAIL:
-      return { loading: false, error: action.payload };
+      return { error: action.payload, loading: false };
     case USER_LIST_FILTER_RESET:
       return { usersFiltered: [] };
     default:

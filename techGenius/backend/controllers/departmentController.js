@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Department from '../models/departmentModel.cjs';
+import Department from '../models/departmentModel.js';
 
 // @desc    Register a new department
 // @route   POST /api/departments
