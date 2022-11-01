@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { updateUser } from '../actions/userActions';
 
 function EmployeeListTable() {
   const dispatch = useDispatch();
@@ -13,34 +14,39 @@ function EmployeeListTable() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
     } else {
       navigate('/login');
     }
-  }, [userInfo, usersFiltered, loading]);
+  }, [userInfo, usersFiltered, loading, user]);
 
-  // const submitHandler = (e) => {
-  //   const user = e.target.value;
-  //   console.log(user);
-  //   if (user.status === 'active') {
-  //     dispatch(
-  //       updateUser({
-  //         _id: user._id,
-  //         status: 'deactive',
-  //       })
-  //     );
-  //   } else {
-  //     dispatch(
-  //       updateUser({
-  //         _id: user._id,
-  //         status: 'active',
-  //       })
-  //     );
-  //   }
+  const submitHandler = (e) => {
+    const user = usersFiltered.filter((user) => user._id == e.target.value)[0];
+    console.log(user);
+    if (user.status === 'active') {
+      dispatch(
+        updateUser({
+          _id: user._id,
+          status: 'deactive',
+        })
+      );
+    } else {
+      dispatch(
+        updateUser({
+          _id: user._id,
+          status: 'active',
+        })
+      );
+    }
 
-  //   e.preventDefault();
-  // };
+    navigate('/');
+
+    e.preventDefault();
+  };
 
   return loading ? (
     <p className='text-4xl mt-40 ml-40'>Loading...</p>
@@ -67,14 +73,14 @@ function EmployeeListTable() {
                     <button className='btn btn-accent'>Edit</button>
                   </Link>
 
-                  {/* <button
+                  <button
                     className='btn btn-secondary'
-                    value={user}
+                    value={user._id}
                     type='submit'
-                    onSubmit={submitHandler}
+                    onClick={(e) => submitHandler(e)}
                   >
                     {user.status === 'active' ? 'Deactive' : 'Active'}
-                  </button> */}
+                  </button>
                 </div>
               </td>
               <td>{user.firstName}</td>
