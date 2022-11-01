@@ -152,7 +152,6 @@ const getUsersFilter = asyncHandler(async (req, res) => {
   if (pageSize === 'all') pageSize = 999999;
 
   if (status || departmentid || managerid || search) {
-    console.log('in if');
     if (status && departmentid && managerid) {
       const count = await User.count({
         status: status,
@@ -254,7 +253,6 @@ const getUsersFilter = asyncHandler(async (req, res) => {
 
     res.json(users);
   } else {
-    console.log('in else');
     console.log(page);
 
     const count = await User.count();

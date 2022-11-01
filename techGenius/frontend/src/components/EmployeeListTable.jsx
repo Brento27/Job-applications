@@ -88,7 +88,7 @@ function EmployeeListTable() {
               <td>{user.telephoneNumber}</td>
               <td>{user.email}</td>
 
-              {user.department.manager ? (
+              {user.isManager !== true ? (
                 <td>
                   {user.department.manager.firstName +
                     ' ' +

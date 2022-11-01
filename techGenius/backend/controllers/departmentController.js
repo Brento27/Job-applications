@@ -50,7 +50,6 @@ const getDepartmentsFiltered = asyncHandler(async (req, res) => {
   const status = req.query.status;
   const search = req.query.search;
 
-  console.log(page);
   if (search) {
     const regex = new RegExp(search, 'i');
     const count = await Department.count({
