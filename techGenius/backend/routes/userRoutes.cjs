@@ -10,8 +10,8 @@ import {
   getUserById,
   updateUser,
   getUsersFilter,
-} from '../controllers/userController.js';
-import { protect, manager } from '../middleware/authMiddleware.js';
+} from '../controllers/userController.cjs';
+import { protect, manager } from '../middleware/authMiddleware.cjs';
 
 router.route('/').post(registerUser).get(protect, manager, getUsers);
 router.get('/query', protect, manager, getUsersFilter);
