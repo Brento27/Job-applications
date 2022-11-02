@@ -1,6 +1,6 @@
 {
   "name": "hradmin",
-  "proxy": "https://hradmin-backend.vercel.app",
+  "homepage": "https://www.hr-admin.codingbybrent.co.za/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

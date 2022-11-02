@@ -27,6 +27,7 @@ function EditEmployeeForm() {
   const [status, setStatus] = useState('');
   const [email, setEmail] = useState('');
   const [department, setDepartment] = useState({});
+  const [departmentsArray, setDepartmentsArray] = useState([]);
 
   const saveHandler = (e) => {
     try {
@@ -88,6 +89,7 @@ function EditEmployeeForm() {
 
   useEffect(() => {
     checkUserDetails();
+    setDepartmentsArray(departments);
   }, [dispatch, user._id]);
   return loading ? (
     'Loading...'
@@ -144,13 +146,17 @@ function EditEmployeeForm() {
               setDepartment(JSON.parse(e.target.value));
             }}
           >
-            {departments?.map((department) => {
-              return (
-                <option key={department._id} value={JSON.stringify(department)}>
-                  {department.name}
-                </option>
-              );
-            })}
+            {departments &&
+              departmentsArray.map((department) => {
+                return (
+                  <option
+                    key={department._id}
+                    value={JSON.stringify(department)}
+                  >
+                    {department.name}
+                  </option>
+                );
+              })}
           </select>
         </div>
 

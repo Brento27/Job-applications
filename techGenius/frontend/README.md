@@ -72,3 +72,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 http://127.0.0.1:5000 local host
 
 https://hradmin-backend.vercel.app deployed
+
+"proxy": "https://hradmin-backend.vercel.app",
