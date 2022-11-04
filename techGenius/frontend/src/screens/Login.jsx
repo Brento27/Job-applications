@@ -81,7 +81,7 @@ const Login = () => {
             placeholder='Type Username Here'
             value={email}
             onChange={handleEmailChange}
-            className='input input-bordered input-accent w-full max-w-2xl'
+            className='input input-bordered input-primary w-full max-w-2xl'
           />
         </div>
         {messageEmail && <div className='message'>{messageEmail}</div>}
@@ -94,13 +94,13 @@ const Login = () => {
             placeholder='Type Password Here'
             value={password}
             onChange={handlePasswordChange}
-            className='input input-bordered input-accent w-full max-w-2xl'
+            className='input input-bordered input-primary w-full max-w-2xl'
           />
         </div>
         {messagePassword && <div className='message'>{messagePassword}</div>}
 
         <button
-          className={`btn btn-accent ${btnDisabled} px-36 mt-12`}
+          className={`btn btn-success ${btnDisabled} px-36 mt-12`}
           onClick={submitHandler}
         >
           Login

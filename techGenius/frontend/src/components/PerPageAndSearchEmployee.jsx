@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { filterListUsers } from '../actions/userActions';
 import { BiSearchAlt } from 'react-icons/bi';
 
-function PerPageAndSearchEmployee({ selectPageSize }) {
-  const dispatch = useDispatch();
+function PerPageAndSearchEmployee({ selectPageSize, handleSearch }) {
   const [search, setSearch] = useState('');
-  const [pageSize, setPageSize] = useState(10);
 
   const searchHandler = () => {
-    dispatch(filterListUsers('', pageSize, '', '', '', search));
+    handleSearch(search);
     setSearch('');
   };
 
   const handleChange = (e) => {
-    setPageSize(e.target.value);
     selectPageSize(e.target.value);
   };
   return (

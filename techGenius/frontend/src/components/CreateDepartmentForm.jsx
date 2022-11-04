@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerDepartment } from '../actions/departmentActions';
 import { updateUser } from '../actions/userActions';
+import { BiSave } from 'react-icons/bi';
+import { TiCancel } from 'react-icons/ti';
 
 function CreateDepartmentForm() {
   const navigate = useNavigate();
@@ -43,13 +45,13 @@ function CreateDepartmentForm() {
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='flex mt-6 items-center justify-between'>
           <p className='text-2xl'>*Manager</p>
           <select
-            className='select select-accent w-full max-w-xs justify-self-end'
+            className='select select-primary w-full max-w-xs justify-self-end'
             defaultValue={manager}
             onChange={(e) => {
               setManager(JSON.parse(e.target.value));
@@ -67,11 +69,11 @@ function CreateDepartmentForm() {
         </div>
       </div>
       <div className='flex justify-end my-4 gap-4'>
-        <button className='btn btn-accent' onClick={saveHandler}>
-          Save
+        <button className='btn btn-success gap-2' onClick={saveHandler}>
+          <BiSave size={25} /> Save
         </button>
-        <button className='btn btn-accent' onClick={cancelHandler}>
-          Cancel
+        <button className='btn btn-error gap-2' onClick={cancelHandler}>
+          <TiCancel size={25} /> Cancel
         </button>
       </div>
     </>

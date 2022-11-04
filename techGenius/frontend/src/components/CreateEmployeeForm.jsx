@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../actions/userActions';
+import { BiSave } from 'react-icons/bi';
+import { TiCancel } from 'react-icons/ti';
 
 function CreateEmployeeForm() {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ function CreateEmployeeForm() {
             type='text'
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='mt-6 flex items-center justify-between'>
@@ -54,7 +56,7 @@ function CreateEmployeeForm() {
             type='text'
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='mt-6 flex items-center justify-between'>
@@ -64,7 +66,7 @@ function CreateEmployeeForm() {
             placeholder='eg. 0821111111'
             value={telephoneNumber}
             onChange={(e) => setTelephoneNumber(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='mt-6 flex items-center justify-between'>
@@ -74,13 +76,13 @@ function CreateEmployeeForm() {
             placeholder='eg. test@test.com'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='flex mt-6 items-center justify-between'>
           <p className='text-2xl'>*Department</p>
           <select
-            className='select select-accent w-80'
+            className='select select-primary w-80'
             onChange={(e) => {
               setDepartment(JSON.parse(e.target.value));
             }}
@@ -97,11 +99,11 @@ function CreateEmployeeForm() {
         </div>
       </div>
       <div className='flex justify-end my-4 gap-4'>
-        <button className='btn btn-accent' onClick={saveHandler}>
-          Save
+        <button className='btn btn-success gap-2' onClick={saveHandler}>
+          <BiSave size={25} /> Save
         </button>
-        <button className='btn btn-accent' onClick={cancelHandler}>
-          Cancel
+        <button className='btn btn-error gap-2' onClick={cancelHandler}>
+          <TiCancel size={25} /> Cancel
         </button>
       </div>
     </>

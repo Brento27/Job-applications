@@ -14,7 +14,7 @@ function PaginationDepartment({ selectCurrentPage }) {
   }
 
   return pages > 1 ? (
-    <div className='btn-group px-6 mb-6'>
+    <div className='btn-group px-6 mb-6 '>
       {buttonArray.map((x) => (
         <button
           className='btn btn-primary'

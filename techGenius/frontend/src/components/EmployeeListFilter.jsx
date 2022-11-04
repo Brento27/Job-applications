@@ -57,6 +57,31 @@ function EmployeeListFilter() {
       )
     );
   };
+  const selectCurrentPageSize = (pageSize) => {
+    setPageSizeFilter(pageSize);
+
+    dispatch(
+      filterListUsers(
+        1,
+        pageSize,
+        activeFilter,
+        departmentFilter._id,
+        managerFilter._id
+      )
+    );
+  };
+  const handleSearch = (keyword) => {
+    dispatch(
+      filterListUsers(
+        1,
+        pageSizeFilter,
+        activeFilter,
+        departmentFilter._id,
+        managerFilter._id,
+        keyword
+      )
+    );
+  };
 
   useEffect(() => {}, [users, usersFiltered]);
 
@@ -131,7 +156,10 @@ function EmployeeListFilter() {
         </div>
       </div>
       <PerPageAndSearchEmployee
-        selectPageSize={(pageSize) => setPageSizeFilter(pageSize)}
+        selectPageSize={(pageSize) => selectCurrentPageSize(pageSize)}
+        handleSearch={(keyword) => {
+          handleSearch(keyword);
+        }}
       />
       <div className='overflow-x-auto mt-4 px-6'>
         <EmployeeListTable />

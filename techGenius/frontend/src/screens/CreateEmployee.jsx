@@ -26,7 +26,7 @@ function CreateEmployee() {
       <div className='px-6 h-full flex gap-4'>
         <Menu />
         <div className='w-full h-full'>
-          <p className='font-bold text-3xl'>Create / Edit Employee</p>
+          <p className='font-bold text-3xl'>Create Employee</p>
           <CreateEmployeeForm />
         </div>
       </div>

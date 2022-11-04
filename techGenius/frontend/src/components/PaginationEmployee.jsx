@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function PaginationEmployee({ selectCurrentPage }) {
@@ -12,11 +12,12 @@ function PaginationEmployee({ selectCurrentPage }) {
   }
 
   return pages > 1 ? (
-    <div className='btn-group mb-16 mt-8'>
+    <div className='btn-group px-6 mb-6'>
       {buttonArray.map((x) => (
         <button
-          className='btn'
+          className='btn btn-primary'
           value={x}
+          key={x}
           onClick={(e) => {
             selectCurrentPage(e.target.value);
           }}
