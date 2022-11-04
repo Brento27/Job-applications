@@ -15,7 +15,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, error } = userLogin;
+  const { userInfo, error, loading } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
@@ -66,7 +66,9 @@ const Login = () => {
 
     setPassword(e.target.value);
   };
-  return (
+  return loading ? (
+    ''
+  ) : (
     <div className='bg-gray-200'>
       <div className='flex items-center flex-col p-8 pb-16'>
         <p className='text-4xl m-12 font-bold'>Login</p>
