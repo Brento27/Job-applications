@@ -138,7 +138,6 @@ export const listDepartments = () => async (dispatch, getState) => {
 export const listDepartmentsfilter =
   (currentPage = 1, pageSize = 10, status = '', search = '') =>
   async (dispatch, getState) => {
-    console.log(currentPage);
     try {
       dispatch({
         type: DEPARTMENT_LIST_FILTER_REQUEST,

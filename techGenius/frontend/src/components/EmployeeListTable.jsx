@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateUser } from '../actions/userActions';
+import { FaEdit } from 'react-icons/fa';
 
 function EmployeeListTable() {
   const dispatch = useDispatch();
@@ -51,10 +52,10 @@ function EmployeeListTable() {
   return loading ? (
     <p className='text-4xl mt-40 ml-40'>Loading...</p>
   ) : (
-    <table className='table w-full'>
+    <table className='table w-full mb-6'>
       <thead>
         <tr>
-          <th>Actions</th>
+          <th></th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Telephone Number</th>
@@ -70,17 +71,10 @@ function EmployeeListTable() {
               <td>
                 <div className='flex gap-2'>
                   <Link to={`/employee/edit/${user._id}`}>
-                    <button className='btn btn-accent'>Edit</button>
+                    <button className='btn btn-primary btn-outline'>
+                      <FaEdit />
+                    </button>
                   </Link>
-
-                  <button
-                    className='btn btn-secondary'
-                    value={user._id}
-                    type='submit'
-                    onClick={(e) => submitHandler(e)}
-                  >
-                    {user.status === 'active' ? 'Deactive' : 'Active'}
-                  </button>
                 </div>
               </td>
               <td>{user.firstName}</td>
@@ -98,7 +92,18 @@ function EmployeeListTable() {
                 <td></td>
               )}
 
-              <td>{user.status}</td>
+              <td>
+                <button
+                  className={`btn ${
+                    user.status === 'active' ? 'btn-success' : 'btn-error'
+                  } rounded-full`}
+                  value={user._id}
+                  type='submit'
+                  onClick={(e) => submitHandler(e)}
+                >
+                  {user.status}
+                </button>
+              </td>
             </tr>
           );
         })}

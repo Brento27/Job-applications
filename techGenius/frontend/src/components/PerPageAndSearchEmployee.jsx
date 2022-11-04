@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterListUsers } from '../actions/userActions';
+import { BiSearchAlt } from 'react-icons/bi';
 
 function PerPageAndSearchEmployee({ selectPageSize }) {
   const dispatch = useDispatch();
@@ -17,11 +18,11 @@ function PerPageAndSearchEmployee({ selectPageSize }) {
     selectPageSize(e.target.value);
   };
   return (
-    <div className='flex justify-between mt-4'>
+    <div className='flex justify-between mt-4 px-6'>
       <div className='flex gap-6 items-center'>
         <p>Show per Page</p>
         <select
-          className='select select-accent'
+          className='select select-primary bg-white'
           defaultValue={10}
           onChange={(e) => {
             handleChange(e);
@@ -44,26 +45,13 @@ function PerPageAndSearchEmployee({ selectPageSize }) {
             placeholder='Search firstname…'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className='input input-bordered input-accent'
+            className='input input-bordered input-primary bg-white'
           />
           <button
-            className='btn btn-square border-1 border-accent'
+            className='btn btn-square border-1 border-primary bg-primary'
             onClick={searchHandler}
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-              />
-            </svg>
+            <BiSearchAlt size={30} />
           </button>
         </div>
       </div>

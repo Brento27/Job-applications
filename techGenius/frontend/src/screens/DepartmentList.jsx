@@ -30,12 +30,9 @@ function DepartmentList() {
   return (
     <div>
       <NavBar />
-      <div className='px-6 h-full flex gap-4'>
-        <Menu />
-        <div className='w-full h-full'>
-          <p className='font-bold text-3xl'>Departments</p>
-          <DepartmentListFilter />
-        </div>
+
+      <div className='w-full h-full'>
+        <DepartmentListFilter />
       </div>
     </div>
   );

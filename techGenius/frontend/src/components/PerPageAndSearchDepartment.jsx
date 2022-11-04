@@ -5,10 +5,8 @@ import { listDepartmentsfilter } from '../actions/departmentActions';
 function PerPageAndSearchDepartment({ selectPageSize }) {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
-  const [pageSize, setPageSize] = useState(10);
 
   const handleChange = (e) => {
-    setPageSize(e.target.value);
     selectPageSize(e.target.value);
   };
   const searchHandler = () => {
@@ -16,11 +14,11 @@ function PerPageAndSearchDepartment({ selectPageSize }) {
     setSearch('');
   };
   return (
-    <div className='flex justify-between mt-4'>
+    <div className='flex justify-between mt-4 px-6'>
       <div className='flex gap-6 items-center'>
         <p>Show per Page</p>
         <select
-          className='select select-accent'
+          className='select select-primary'
           defaultValue={10}
           onChange={(e) => {
             handleChange(e);
@@ -43,10 +41,10 @@ function PerPageAndSearchDepartment({ selectPageSize }) {
             placeholder='Search name…'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className='input input-bordered input-accent'
+            className='input input-bordered input-primary'
           />
           <button
-            className='btn btn-square border-1 border-accent'
+            className='btn btn-square border-1 border-primary'
             onClick={searchHandler}
           >
             <svg

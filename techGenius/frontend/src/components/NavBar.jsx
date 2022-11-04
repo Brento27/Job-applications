@@ -21,7 +21,7 @@ function NavBar() {
   }, []);
   return (
     <>
-      <div className='navbar'>
+      <div className='navbar bg-white mb-4'>
         <div className='navbar-start'>
           <div className='dropdown'>
             <label tabIndex={0} className='btn btn-ghost btn-circle'>
@@ -37,12 +37,13 @@ function NavBar() {
                   strokeLinejoin='round'
                   strokeWidth='2'
                   d='M4 6h16M4 12h16M4 18h7'
+                  className='text-primary'
                 />
               </svg>
             </label>
             <ul
               tabIndex={0}
-              className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'
+              className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52 text-primary'
             >
               <li>
                 <Link to='/employee/list'>Employee List</Link>
@@ -52,12 +53,15 @@ function NavBar() {
               </li>
             </ul>
           </div>
-          <Link to='/' className='btn btn-ghost normal-case text-xl'>
+          <Link
+            to='/'
+            className='btn btn-ghost normal-case text-2xl text-primary font-bold'
+          >
             HR Administration System
           </Link>
         </div>
         <div className='navbar-end'>
-          <button className='btn btn-outline btn-' onClick={logoutHandler}>
+          <button className='btn btn-outline' onClick={logoutHandler}>
             Logout
           </button>
         </div>

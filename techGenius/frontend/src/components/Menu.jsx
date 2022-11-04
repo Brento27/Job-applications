@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { AiOutlineUserAdd } from 'react-icons/ai';
+import { HiBuildingStorefront } from 'react-icons/hi2';
 
 function Menu() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -15,25 +17,25 @@ function Menu() {
     navigate('/department/create');
   };
   return (
-    <div className='border-2 rounded-md border-fuchsia-700 w-1/6 h-96'>
+    <div className='border-2 rounded-xl border-primary w-fit bg-white h-fit p-4'>
       <p className='text-center'>Menu</p>
 
       {userInfo.isManager && (
         <>
           <div className='flex justify-around my-4'>
             <button
-              className='btn btn-outline btn-accent p-1 w-4/5'
+              className='btn btn-outline p-2  h-fit'
               onClick={addEmployeeHandler}
             >
-              Add-Employee
+              <AiOutlineUserAdd size={40} />
             </button>
           </div>
-          <div className='flex justify-around my-4'>
+          <div className='flex justify-around mt-4'>
             <button
-              className='btn btn-outline btn-accent p-1 w-4/5'
+              className='btn btn-outline p-2 h-fit'
               onClick={addDepartmentHandler}
             >
-              Add-Department
+              <HiBuildingStorefront size={40} />
             </button>
           </div>
         </>

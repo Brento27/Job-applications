@@ -69,7 +69,7 @@ const Login = () => {
   return loading ? (
     ''
   ) : (
-    <div className='bg-gray-200'>
+    <div className='bg-gray-300 h-screen'>
       <div className='flex items-center flex-col p-8 pb-16'>
         <p className='text-4xl m-12 font-bold'>Login</p>
         <div className='form-control w-full max-w-2xl mb-2'>

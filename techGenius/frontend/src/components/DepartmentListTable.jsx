@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateDepartment } from '../actions/departmentActions';
@@ -42,47 +43,56 @@ function DepartmentListTable() {
   return loadingDepartment ? (
     <p className='text-4xl mt-40 ml-40'>Loading...</p>
   ) : (
-    <div className='overflow-x-auto mt-4'>
-      <table className='table w-full'>
-        <thead>
-          <tr>
-            <th>Actions</th>
-            <th>Name</th>
-            <th>Manager</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {departmentsfiltered?.map((department) => {
-            return (
-              <tr key={department._id}>
-                <td>
-                  <div className='flex gap-2'>
-                    <Link to={`/department/edit/${department._id}`}>
-                      <button className='btn btn-accent'>Edit</button>
-                    </Link>
+    <div className='overflow-x-auto my-4 px-6'>
+      <div className='border-2 border-primary rounded-xl p-1 mb-4 '>
+        <table className='table w-full'>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Manager</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {departmentsfiltered?.map((department) => {
+              return (
+                <tr key={department._id}>
+                  <td>
+                    <div className='flex gap-2'>
+                      <Link to={`/department/edit/${department._id}`}>
+                        <button className='btn btn-primary btn-outline'>
+                          <FaEdit />
+                        </button>
+                      </Link>
+                    </div>
+                  </td>
+                  <td>{department.name}</td>
+                  <td>
+                    {department.manager.firstName +
+                      ' ' +
+                      department.manager.lastName}
+                  </td>
+                  <td>
                     <button
-                      className='btn btn-secondary'
+                      className={`btn ${
+                        department.status === 'active'
+                          ? 'btn-success'
+                          : 'btn-error'
+                      } rounded-full`}
                       value={department._id}
                       type='submit'
                       onClick={(e) => submitHandler(e)}
                     >
-                      {department.status === 'active' ? 'Deactive' : 'Active'}
+                      {department.status}
                     </button>
-                  </div>
-                </td>
-                <td>{department.name}</td>
-                <td>
-                  {department.manager.firstName +
-                    ' ' +
-                    department.manager.lastName}
-                </td>
-                <td>{department.status}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -24,14 +24,10 @@ function EmployeeList() {
     }
   }, [dispatch, userInfo]);
   return (
-    <div>
+    <div className='bg-gray-300 h-full'>
       <NavBar />
-      <div className='px-6 h-full flex gap-4'>
-        <Menu />
-        <div className='w-full'>
-          <p className='font-bold text-3xl'>Employees</p>
-          <EmployeeListFilter />
-        </div>
+      <div className='w-full'>
+        <EmployeeListFilter />
       </div>
     </div>
   );
