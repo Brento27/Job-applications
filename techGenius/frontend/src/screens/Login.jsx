@@ -6,6 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [btnDisabled, setBtnDisabled] = useState('btn-disabled');
+  const [messageEmail, setMessageEmail] = useState('');
+  const [messagePassword, setMessagePassword] = useState('');
+  const [messageError, setMessageError] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,16 +31,46 @@ const Login = () => {
     try {
       e.preventDefault();
       dispatch(login(email, password));
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
+    if (error) setMessageError(error);
+  };
+
+  const handleEmailChange = (e) => {
+    if (email === '') {
+      setBtnDisabled('btn-disabled');
+      setMessageEmail(null);
+    } else if (email !== '' && email.trim().length <= 10) {
+      setBtnDisabled('btn-disabled');
+      setMessageEmail('Not a valid email');
+    } else {
+      if (messagePassword === null) setBtnDisabled('');
+      setMessageEmail(null);
+    }
+
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    if (password === '') {
+      setBtnDisabled('btn-disabled');
+      setMessagePassword(null);
+    } else if (password !== '' && password.trim().length <= 10) {
+      setBtnDisabled('btn-disabled');
+      setMessagePassword('Password has to be 8 characters long');
+    } else {
+      if (messageEmail === null) setBtnDisabled('');
+      setMessagePassword(null);
+    }
+
+    setPassword(e.target.value);
   };
   return (
-    <div className='border-2 border-fuchsia-700 m-8 h-fit'>
-      <p className='absolute top-5 left-12 bg-default px-2'>Login</p>
+    <div className='bg-gray-200'>
       <div className='flex items-center flex-col p-8 pb-16'>
-        <p className='text-4xl my-12 mt-16 font-bold'>Login</p>
-        <div className='form-control w-full max-w-2xl mb-6'>
+        <p className='text-4xl m-12 font-bold'>Login</p>
+        <div className='form-control w-full max-w-2xl mb-2'>
           <label className='label'>
             <span className='label-text'>Email</span>
           </label>
@@ -44,11 +78,12 @@ const Login = () => {
             type='text'
             placeholder='Type Username Here'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             className='input input-bordered input-accent w-full max-w-2xl'
           />
         </div>
-        <div className='form-control w-full max-w-2xl mt-6 mb-12'>
+        {messageEmail && <div className='message'>{messageEmail}</div>}
+        <div className='form-control w-full max-w-2xl mt-6 mb-2'>
           <label className='label'>
             <span className='label-text'>Password</span>
           </label>
@@ -56,16 +91,19 @@ const Login = () => {
             type='password'
             placeholder='Type Password Here'
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             className='input input-bordered input-accent w-full max-w-2xl'
           />
         </div>
-        {error && (
-          <div className='mb-4'>{error} (Invalid email or password)</div>
-        )}
-        <button className='btn btn-accent px-36' onClick={submitHandler}>
+        {messagePassword && <div className='message'>{messagePassword}</div>}
+
+        <button
+          className={`btn btn-accent ${btnDisabled} px-36 mt-12`}
+          onClick={submitHandler}
+        >
           Login
         </button>
+        {messageError && <div className='message'>{messageError}</div>}
       </div>
     </div>
   );

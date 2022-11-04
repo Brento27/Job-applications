@@ -15,7 +15,7 @@ function Menu() {
     navigate('/department/create');
   };
   return (
-    <div className='border-2 border-fuchsia-700 w-1/6 h-96'>
+    <div className='border-2 rounded-md border-fuchsia-700 w-1/6 h-96'>
       <p className='text-center'>Menu</p>
 
       {userInfo.isManager && (
