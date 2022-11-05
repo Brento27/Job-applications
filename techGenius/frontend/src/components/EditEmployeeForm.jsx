@@ -6,6 +6,9 @@ import {
   updateUserProfile,
   getUserDetails,
 } from '../actions/userActions';
+import Loader from './Loader';
+import { BiSave } from 'react-icons/bi';
+import { TiCancel } from 'react-icons/ti';
 
 function EditEmployeeForm() {
   const navigate = useNavigate();
@@ -27,7 +30,6 @@ function EditEmployeeForm() {
   const [status, setStatus] = useState('');
   const [email, setEmail] = useState('');
   const [department, setDepartment] = useState({});
-  const [departmentsArray, setDepartmentsArray] = useState([]);
 
   const saveHandler = (e) => {
     try {
@@ -89,10 +91,9 @@ function EditEmployeeForm() {
 
   useEffect(() => {
     checkUserDetails();
-    setDepartmentsArray(departments);
   }, [dispatch, user._id]);
   return loading ? (
-    'Loading...'
+    <Loader />
   ) : (
     <>
       <div>
@@ -104,7 +105,7 @@ function EditEmployeeForm() {
             defaultValue={firstName}
             placeholder={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='mt-6 flex items-center justify-between'>
@@ -114,7 +115,7 @@ function EditEmployeeForm() {
             value={lastName}
             defaultValue={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='mt-6 flex items-center justify-between'>
@@ -124,7 +125,7 @@ function EditEmployeeForm() {
             placeholder={telephoneNumber}
             value={telephoneNumber}
             onChange={(e) => setTelephoneNumber(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='mt-6 flex items-center justify-between'>
@@ -134,36 +135,37 @@ function EditEmployeeForm() {
             placeholder={email}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary w-80'
           />
         </div>
         <div className='flex mt-6 items-center justify-between'>
           <p className='text-2xl'>*Department</p>
           <select
-            className='select select-accent w-80'
+            className='select select-primary w-80'
             defaultValue={department}
             onChange={(e) => {
               setDepartment(JSON.parse(e.target.value));
             }}
           >
-            {departments &&
-              departmentsArray.map((department) => {
-                return (
-                  <option
-                    key={department._id}
-                    value={JSON.stringify(department)}
-                  >
-                    {department.name}
-                  </option>
-                );
-              })}
+            {departments
+              ? departments.map((department) => {
+                  return (
+                    <option
+                      key={department._id}
+                      value={JSON.stringify(department)}
+                    >
+                      {department.name}
+                    </option>
+                  );
+                })
+              : ''}
           </select>
         </div>
 
         <div className='flex mt-6 items-center justify-between'>
           <p className='text-2xl'>*Status</p>
           <select
-            className='select select-accent w-80'
+            className='select select-primary w-80'
             value={status}
             defaultValue={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -174,11 +176,11 @@ function EditEmployeeForm() {
         </div>
       </div>
       <div className='flex justify-end my-4 gap-4'>
-        <button className='btn btn-accent' onClick={saveHandler}>
-          Save
+        <button className='btn btn-success gap-2' onClick={saveHandler}>
+          <BiSave size={25} /> Save
         </button>
-        <button className='btn btn-accent' onClick={cancelHandler}>
-          Cancel
+        <button className='btn btn-error gap-2' onClick={cancelHandler}>
+          <TiCancel size={25} /> Cancel
         </button>
       </div>
     </>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../components/Loader';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -67,9 +68,9 @@ const Login = () => {
     setPassword(e.target.value);
   };
   return loading ? (
-    ''
+    <Loader />
   ) : (
-    <div className='bg-gray-300 h-screen'>
+    <div className='bg-gray-300 h-full'>
       <div className='flex items-center flex-col p-8 pb-16'>
         <p className='text-4xl m-12 font-bold'>Login</p>
         <div className='form-control w-full max-w-2xl mb-2'>

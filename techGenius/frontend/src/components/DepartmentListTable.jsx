@@ -4,6 +4,7 @@ import { FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateDepartment } from '../actions/departmentActions';
+import Loader from './Loader';
 
 function DepartmentListTable() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ function DepartmentListTable() {
     e.preventDefault();
   };
   return loadingDepartment ? (
-    <p className='text-4xl mt-40 ml-40'>Loading...</p>
+    <Loader />
   ) : (
     <div className='overflow-x-auto my-4 px-6'>
       <div className='border-2 border-primary rounded-xl p-1 mb-4 '>

@@ -17,7 +17,7 @@ function EditEmployee() {
   return (
     <div>
       <NavBar />
-      <div className='px-6 h-full flex gap-4'>
+      <div className='px-6 h-full flex gap-4 bg-gray-300'>
         <Menu />
         <div className='w-full h-full'>
           <p className='font-bold text-3xl'>Edit Employee</p>

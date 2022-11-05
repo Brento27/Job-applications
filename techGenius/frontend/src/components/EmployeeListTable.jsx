@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateUser } from '../actions/userActions';
 import { FaEdit } from 'react-icons/fa';
+import Loader from './Loader';
 
 function EmployeeListTable() {
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function EmployeeListTable() {
   };
 
   return loading ? (
-    <p className='text-4xl mt-40 ml-40'>Loading...</p>
+    <Loader />
   ) : (
     <table className='table w-full mb-6'>
       <thead>

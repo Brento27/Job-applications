@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateDepartment } from '../actions/departmentActions';
+import { BiSave } from 'react-icons/bi';
+import { TiCancel } from 'react-icons/ti';
+import Loader from './Loader';
 
 function EditDepartmentForm() {
   const navigate = useNavigate();
@@ -42,7 +45,7 @@ function EditDepartmentForm() {
   }, [dispatch, department]);
 
   return loading || loadingDepartment ? (
-    <p className='text-4xl mt-40 ml-40'>Loading...</p>
+    <Loader />
   ) : (
     <>
       <div>
@@ -52,13 +55,15 @@ function EditDepartmentForm() {
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className='input input-bordered input-accent w-80'
+            className='input input-bordered input-primary
+             w-80'
           />
         </div>
         <div className='flex mt-6 items-center justify-between'>
           <p className='text-2xl'>*Manager</p>
           <select
-            className='select select-accent w-full max-w-xs justify-self-end'
+            className='select select-primary
+             w-full max-w-xs justify-self-end'
             onChange={(e) => {
               setManager(JSON.parse(e.target.value));
             }}
@@ -77,7 +82,8 @@ function EditDepartmentForm() {
           <div className='flex mt-6 items-center justify-between'>
             <p className='text-2xl'>*Status</p>
             <select
-              className='select select-accent w-80'
+              className='select select-primary
+               w-80'
               value={status}
               defaultValue={status}
               onChange={(e) => setStatus(e.target.value)}
@@ -89,11 +95,11 @@ function EditDepartmentForm() {
         )}
       </div>
       <div className='flex justify-end my-4 gap-4'>
-        <button className='btn btn-accent' onClick={saveHandler}>
-          Save
+        <button className='btn btn-success gap-2' onClick={saveHandler}>
+          <BiSave size={25} /> Save
         </button>
-        <button className='btn btn-accent' onClick={cancelHandler}>
-          Cancel
+        <button className='btn btn-error gap-2' onClick={cancelHandler}>
+          <TiCancel size={25} /> Cancel
         </button>
       </div>
     </>

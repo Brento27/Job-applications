@@ -6,11 +6,7 @@ import {
   listDepartmentsfilter,
 } from '../actions/departmentActions';
 import DepartmentListFilter from '../components/DepartmentListFilter';
-import DepartmentListTable from '../components/DepartmentListTable';
-import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
-import Pagination from '../components/PaginationEmployee';
-import PerPageAndSearchDepartment from '../components/PerPageAndSearchDepartment';
 
 function DepartmentList() {
   const dispatch = useDispatch();
@@ -31,7 +27,7 @@ function DepartmentList() {
     <div>
       <NavBar />
 
-      <div className='w-full h-full'>
+      <div className='w-full h-full bg-gray-300'>
         <DepartmentListFilter />
       </div>
     </div>
