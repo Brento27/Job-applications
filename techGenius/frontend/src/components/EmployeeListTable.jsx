@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { updateUser } from '../actions/userActions';
 import { FaEdit } from 'react-icons/fa';
 import Loader from './Loader';
+import NoData from './NoData';
 
 function EmployeeListTable() {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ function EmployeeListTable() {
 
   return loading ? (
     <Loader />
-  ) : (
+  ) : usersFiltered ? (
     <table className='table w-full mb-6'>
       <thead>
         <tr>
@@ -109,6 +110,8 @@ function EmployeeListTable() {
         })}
       </tbody>
     </table>
+  ) : (
+    <NoData />
   );
 }
 

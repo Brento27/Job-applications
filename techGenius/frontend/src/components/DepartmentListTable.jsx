@@ -3,12 +3,14 @@ import { useEffect } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { updateDepartment } from '../actions/departmentActions';
+import {
+  listDepartmentsfilter,
+  updateDepartment,
+} from '../actions/departmentActions';
 import Loader from './Loader';
 
 function DepartmentListTable() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const departmentListFilter = useSelector(
     (state) => state.departmentListFilter
   );
@@ -35,8 +37,7 @@ function DepartmentListTable() {
         })
       );
     }
-
-    navigate('/');
+    dispatch(listDepartmentsfilter());
 
     e.preventDefault();
   };

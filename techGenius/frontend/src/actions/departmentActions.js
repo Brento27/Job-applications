@@ -196,6 +196,8 @@ export const updateDepartment = (department) => async (dispatch, getState) => {
     dispatch({ type: DEPARTMENT_DETAILS_SUCCESS, payload: data });
 
     dispatch({ type: DEPARTMENT_DETAILS_RESET });
+
+    dispatch(listDepartmentsfilter);
   } catch (error) {
     const message =
       error.response && error.response.data.message

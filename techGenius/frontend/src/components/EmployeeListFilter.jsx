@@ -38,9 +38,6 @@ function EmployeeListFilter() {
     );
   };
   const resetTable = () => {
-    setActiveFilter('');
-    setDepartmentFilter({});
-    setManagerFilter({});
     dispatch(filterListUsers());
   };
 

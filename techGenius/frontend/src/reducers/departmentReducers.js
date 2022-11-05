@@ -91,11 +91,11 @@ export const departmentListFilterReducer = (
 export const departmentUpdateReducer = (state = { department: {} }, action) => {
   switch (action.type) {
     case DEPARTMENT_UPDATE_REQUEST:
-      return { loadingDepartment: true };
+      return { loadingDepartmentUpdate: true };
     case DEPARTMENT_UPDATE_SUCCESS:
-      return { loadingDepartment: false, success: true };
+      return { loadingDepartmentUpdate: false, success: true };
     case DEPARTMENT_UPDATE_FAIL:
-      return { loadingDepartment: false, error: action.payload };
+      return { loadingDepartmentUpdate: false, error: action.payload };
     case DEPARTMENT_UPDATE_RESET:
       return {
         department: {},
