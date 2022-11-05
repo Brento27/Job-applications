@@ -20,7 +20,6 @@ function DepartmentListTable() {
     const department = departmentsfiltered.filter(
       (department) => department._id == e.target.value
     )[0];
-    console.log(department);
     if (department.status === 'active') {
       dispatch(
         updateDepartment({

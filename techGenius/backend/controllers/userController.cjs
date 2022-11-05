@@ -253,8 +253,6 @@ const getUsersFilter = asyncHandler(async (req, res) => {
 
     res.json(users);
   } else {
-    console.log(page);
-
     const count = await User.count();
 
     users = await User.find()
@@ -300,8 +298,6 @@ const getUserById = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
-  console.log(req.body.department);
-
   if (user) {
     user.firstName = req.body.firstName || user.firstName;
     user.lastName = req.body.lastName || user.lastName;
@@ -310,8 +306,6 @@ const updateUser = asyncHandler(async (req, res) => {
     user.status = req.body.status || user.status;
     user.department = req.body.department || user.department;
     user.isManager = req.body.isManager || user.isManager;
-
-    console.log(req.body.department);
 
     const updatedUser = await user.save();
 

@@ -167,7 +167,6 @@ function EmployeeListFilter() {
       <PaginationEmployee
         selectCurrentPage={(currentPage) => {
           selectCurrentPage(currentPage);
-          console.log(currentPage);
         }}
       />
     </>

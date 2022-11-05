@@ -28,7 +28,6 @@ function EmployeeListTable() {
 
   const submitHandler = (e) => {
     const user = usersFiltered.filter((user) => user._id == e.target.value)[0];
-    console.log(user);
     if (user.status === 'active') {
       dispatch(
         updateUser({
