@@ -12,6 +12,8 @@ function CreateDepartmentForm() {
 
   const [name, setName] = useState('');
   const [manager, setManager] = useState({});
+  const [btnDisabled, setBtnDisabled] = useState('btn-disabled');
+  const [messageName, setMessageName] = useState(null);
 
   const userList = useSelector((state) => state.userList);
   const { users, loading } = userList;
@@ -34,6 +36,20 @@ function CreateDepartmentForm() {
     navigate('/department/list');
   };
 
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    if (name === '') {
+      setBtnDisabled('btn-disabled');
+      setMessageName(null);
+    } else if (name.trim().length <= 3) {
+      setBtnDisabled('btn-disabled');
+
+      setMessageName('Not a valid name, must be atleast 3 characters');
+    } else {
+      setBtnDisabled('');
+      setMessageName(null);
+    }
+  };
   return loading ? (
     <p className='text-4xl mt-40 ml-40'>Loading...</p>
   ) : (
@@ -44,7 +60,7 @@ function CreateDepartmentForm() {
           <input
             type='text'
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
             className='input input-bordered input-primary w-80'
           />
         </div>
@@ -69,7 +85,10 @@ function CreateDepartmentForm() {
         </div>
       </div>
       <div className='flex justify-end my-4 gap-4'>
-        <button className='btn btn-success gap-2' onClick={saveHandler}>
+        <button
+          className={`btn btn-success ${btnDisabled} gap-2`}
+          onClick={saveHandler}
+        >
           <BiSave size={25} /> Save
         </button>
         <button className='btn btn-error gap-2' onClick={cancelHandler}>

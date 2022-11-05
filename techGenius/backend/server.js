@@ -1,7 +1,7 @@
-import connectDB from './config/db.cjs';
+import connectDB from './config/db.js';
 import express from 'express';
-import userRoutes from './routes/userRoutes.cjs';
-import departmentRoutes from './routes/departmentRoutes.cjs';
+import userRoutes from './routes/userRoutes.js';
+import departmentRoutes from './routes/departmentRoutes.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { errorHandler, notFound } from './middleware/errorMiddleWare1.js';

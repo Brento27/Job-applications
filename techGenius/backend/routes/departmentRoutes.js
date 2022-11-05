@@ -7,8 +7,8 @@ import {
   getDepartmentById,
   updateDepartment,
   getDepartmentsFiltered,
-} from '../controllers/departmentController.cjs';
-import { protect, manager } from '../middleware/authMiddleware.cjs';
+} from '../controllers/departmentController.js';
+import { protect, manager } from '../middleware/authMiddleware.js';
 
 router.route('/').post(registerDepartment).get(protect, getDepartments);
 router.get('/query', protect, getDepartmentsFiltered);

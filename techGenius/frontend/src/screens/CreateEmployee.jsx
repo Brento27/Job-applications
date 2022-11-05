@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { listUsers } from '../actions/userActions';
+import { listDepartments } from '../actions/departmentActions';
 
 function CreateEmployee() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function CreateEmployee() {
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
       dispatch(listUsers());
+      dispatch(listDepartments());
     } else {
       navigate('/login');
     }

@@ -19,6 +19,8 @@ function EmployeeListTable() {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loadingRegister } = userRegister;
 
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
@@ -50,7 +52,7 @@ function EmployeeListTable() {
     e.preventDefault();
   };
 
-  return loading ? (
+  return loading || loadingRegister ? (
     <Loader />
   ) : usersFiltered ? (
     <table className='table w-full mb-6'>

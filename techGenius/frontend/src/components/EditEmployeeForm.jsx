@@ -101,7 +101,6 @@ function EditEmployeeForm() {
           <p className='text-2xl'>*Name</p>
           <input
             type='text'
-            value={firstName}
             defaultValue={firstName}
             placeholder={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -112,7 +111,6 @@ function EditEmployeeForm() {
           <p className='text-2xl'>*Surname</p>
           <input
             type='text'
-            value={lastName}
             defaultValue={lastName}
             onChange={(e) => setLastName(e.target.value)}
             className='input input-bordered input-primary w-80'
@@ -166,7 +164,6 @@ function EditEmployeeForm() {
           <p className='text-2xl'>*Status</p>
           <select
             className='select select-primary w-80'
-            value={status}
             defaultValue={status}
             onChange={(e) => setStatus(e.target.value)}
           >
