@@ -16,6 +16,8 @@ function EmployeeListTable() {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const { loadingUserUpdate } = userUpdate;
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
@@ -27,19 +29,19 @@ function EmployeeListTable() {
     } else {
       navigate('/login');
     }
-  }, [userInfo, usersFiltered, loading, user]);
+  }, [userInfo, usersFiltered, loading, user, navigate]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     const user = usersFiltered.filter((user) => user._id == e.target.value)[0];
     if (user.status === 'active') {
-      dispatch(
+      await dispatch(
         updateUser({
           _id: user._id,
           status: 'deactive',
         })
       );
     } else {
-      dispatch(
+      await dispatch(
         updateUser({
           _id: user._id,
           status: 'active',
@@ -47,12 +49,10 @@ function EmployeeListTable() {
       );
     }
 
-    navigate('/');
-
     e.preventDefault();
   };
 
-  return loading || loadingRegister ? (
+  return loading || loadingRegister || loadingUserUpdate ? (
     <Loader />
   ) : usersFiltered[0] ? (
     <table className='table w-full mb-6'>

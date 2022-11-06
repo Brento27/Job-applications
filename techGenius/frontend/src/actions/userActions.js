@@ -334,6 +334,8 @@ export const updateUser = (user) => async (dispatch, getState) => {
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
 
     dispatch({ type: USER_DETAILS_RESET });
+
+    dispatch(filterListUsers());
   } catch (error) {
     const message =
       error.response && error.response.data.message

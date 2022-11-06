@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [btnDisabled, setBtnDisabled] = useState('btn-disabled');
-  const [messageEmail, setMessageEmail] = useState('');
-  const [messagePassword, setMessagePassword] = useState('');
-  const [messageError, setMessageError] = useState('');
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,47 +27,41 @@ const Login = () => {
         navigate(`/employee/edit/${userInfo._id}`);
       }
     }
-  }, [userInfo]);
+  }, [userInfo, formErrors]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+    e.preventDefault();
+  };
 
   const submitHandler = (e) => {
-    try {
-      e.preventDefault();
-      dispatch(login(email, password));
-    } catch (err) {
-      console.error(err);
+    setFormErrors(validate(formValues));
+    if (formErrors !== undefined) {
+      dispatch(login(formValues.email, formValues.password));
     }
-    if (error) setMessageError(error);
+    e.preventDefault();
   };
 
-  const handleEmailChange = (e) => {
-    if (email === '') {
-      setBtnDisabled('btn-disabled');
-      setMessageEmail(null);
-    } else if (email !== '' && email.trim().length <= 10) {
-      setBtnDisabled('btn-disabled');
-      setMessageEmail('Not a valid email');
-    } else {
-      if (messagePassword === null) setBtnDisabled('');
-      setMessageEmail(null);
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.email) {
+      errors.email = 'Email is required!';
+    } else if (!regex.test(values.email)) {
+      errors.email = 'This is not a valid email format';
+    }
+    if (!values.password) {
+      errors.password = 'Password is required!';
+    } else if (values.password.length < 4) {
+      errors.password = 'Password must be atleast 6 characters';
+    } else if (values.password.length > 12) {
+      errors.password = 'Password may not have more that 12 characters';
     }
 
-    setEmail(e.target.value);
+    return errors;
   };
 
-  const handlePasswordChange = (e) => {
-    if (password === '') {
-      setBtnDisabled('btn-disabled');
-      setMessagePassword(null);
-    } else if (password !== '' && password.trim().length <= 10) {
-      setBtnDisabled('btn-disabled');
-      setMessagePassword('Password has to be 8 characters long');
-    } else {
-      if (messageEmail === null) setBtnDisabled('');
-      setMessagePassword(null);
-    }
-
-    setPassword(e.target.value);
-  };
   return loading ? (
     <Loader />
   ) : (
@@ -79,34 +74,35 @@ const Login = () => {
           </label>
           <input
             type='text'
+            name='email'
             placeholder='Type Username Here'
-            value={email}
-            onChange={handleEmailChange}
+            value={formValues.email}
+            onChange={handleChange}
             className='input input-bordered input-primary w-full max-w-2xl'
           />
+          <p className='mt-4 text-error'>{formErrors.email}</p>
         </div>
-        {messageEmail && <div className='message'>{messageEmail}</div>}
         <div className='form-control w-full max-w-2xl mt-6 mb-2'>
           <label className='label'>
             <span className='label-text'>Password</span>
           </label>
           <input
             type='password'
+            name='password'
             placeholder='Type Password Here'
-            value={password}
-            onChange={handlePasswordChange}
+            value={formValues.password}
+            onChange={handleChange}
             className='input input-bordered input-primary w-full max-w-2xl'
           />
+          <p className='mt-4 text-error'>{formErrors.password}</p>
         </div>
-        {messagePassword && <div className='message'>{messagePassword}</div>}
 
         <button
-          className={`btn btn-success ${btnDisabled} px-36 mt-12`}
+          className={`btn btn-success px-36 mt-12`}
           onClick={submitHandler}
         >
           Login
         </button>
-        {messageError && <div className='message'>{messageError}</div>}
       </div>
     </div>
   );

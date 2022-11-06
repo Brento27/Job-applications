@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerDepartment } from '../actions/departmentActions';
@@ -36,12 +36,11 @@ function CreateDepartmentForm() {
     navigate('/department/list');
   };
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
+  const handleNameChange = () => {
     if (name === '') {
       setBtnDisabled('btn-disabled');
       setMessageName(null);
-    } else if (name.trim().length <= 3) {
+    } else if (name.trim().length <= 2) {
       setBtnDisabled('btn-disabled');
 
       setMessageName('Not a valid name, must be atleast 3 characters');
@@ -60,7 +59,10 @@ function CreateDepartmentForm() {
           <input
             type='text'
             value={name}
-            onChange={handleNameChange}
+            onChange={(e) => {
+              setName(e.target.value);
+              handleNameChange();
+            }}
             className='input input-bordered input-primary w-80'
           />
         </div>

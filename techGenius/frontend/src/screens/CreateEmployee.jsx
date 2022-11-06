@@ -21,7 +21,7 @@ function CreateEmployee() {
     } else {
       navigate('/login');
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo, navigate]);
   return (
     <div>
       <NavBar />
