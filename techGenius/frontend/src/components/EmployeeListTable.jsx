@@ -54,7 +54,7 @@ function EmployeeListTable() {
 
   return loading || loadingRegister ? (
     <Loader />
-  ) : usersFiltered ? (
+  ) : usersFiltered[0] ? (
     <table className='table w-full mb-6'>
       <thead>
         <tr>

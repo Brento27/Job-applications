@@ -26,8 +26,8 @@ function EmployeeListFilter() {
   const userFilterList = useSelector((state) => state.userFilterList);
   const { usersFiltered } = userFilterList;
 
-  const filterTable = () => {
-    dispatch(
+  const filterTable = async () => {
+    await dispatch(
       filterListUsers(
         1,
         pageSizeFilter,
@@ -37,14 +37,14 @@ function EmployeeListFilter() {
       )
     );
   };
-  const resetTable = () => {
-    dispatch(filterListUsers());
+  const resetTable = async () => {
+    await dispatch(filterListUsers());
   };
 
-  const selectCurrentPage = (currentPage) => {
+  const selectCurrentPage = async (currentPage) => {
     setCurrentPageFilter(currentPage);
 
-    dispatch(
+    await dispatch(
       filterListUsers(
         currentPage,
         pageSizeFilter,
@@ -54,10 +54,10 @@ function EmployeeListFilter() {
       )
     );
   };
-  const selectCurrentPageSize = (pageSize) => {
+  const selectCurrentPageSize = async (pageSize) => {
     setPageSizeFilter(pageSize);
 
-    dispatch(
+    await dispatch(
       filterListUsers(
         1,
         pageSize,
@@ -67,8 +67,8 @@ function EmployeeListFilter() {
       )
     );
   };
-  const handleSearch = (keyword) => {
-    dispatch(
+  const handleSearch = async (keyword) => {
+    await dispatch(
       filterListUsers(
         1,
         pageSizeFilter,

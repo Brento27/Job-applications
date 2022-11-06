@@ -8,6 +8,7 @@ import {
   updateDepartment,
 } from '../actions/departmentActions';
 import Loader from './Loader';
+import NoData from './NoData';
 
 function DepartmentListTable() {
   const dispatch = useDispatch();
@@ -18,32 +19,32 @@ function DepartmentListTable() {
 
   useEffect(() => {}, departmentsfiltered);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     const department = departmentsfiltered.filter(
       (department) => department._id == e.target.value
     )[0];
     if (department.status === 'active') {
-      dispatch(
+      await dispatch(
         updateDepartment({
           _id: department._id,
           status: 'deactive',
         })
       );
     } else {
-      dispatch(
+      await dispatch(
         updateDepartment({
           _id: department._id,
           status: 'active',
         })
       );
     }
-    dispatch(listDepartmentsfilter());
+    await dispatch(listDepartmentsfilter());
 
     e.preventDefault();
   };
   return loadingDepartment ? (
     <Loader />
-  ) : (
+  ) : departmentsfiltered[0] ? (
     <div className='overflow-x-auto my-4 px-6'>
       <div className='border-2 border-primary rounded-xl p-1 mb-4 '>
         <table className='table w-full'>
@@ -95,6 +96,8 @@ function DepartmentListTable() {
         </table>
       </div>
     </div>
+  ) : (
+    <NoData />
   );
 }
 
