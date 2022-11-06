@@ -122,15 +122,19 @@ function EditDepartmentForm() {
                 {department.manager ? department.manager.firstName : ''}{' '}
                 {department.manager ? department.manager.lastName : ''}
               </option>
-              {users
-                ?.filter((user) => user._id != department.manager._id)
-                .map((user) => {
-                  return (
-                    <option key={user._id} value={JSON.stringify(user)}>
-                      {user.firstName + ' ' + user.lastName}
-                    </option>
-                  );
-                })}
+              {users ? (
+                users
+                  .filter((user) => user._id != department.manager._id)
+                  .map((user) => {
+                    return (
+                      <option key={user._id} value={JSON.stringify(user)}>
+                        {user.firstName + ' ' + user.lastName}
+                      </option>
+                    );
+                  })
+              ) : (
+                <Loader />
+              )}
             </select>
             <p className='mt-4 text-error'>{formErrors.manager}</p>
           </div>
