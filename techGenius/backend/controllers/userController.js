@@ -250,8 +250,6 @@ const getUsersFilter = asyncHandler(async (req, res) => {
         .skip(pageSize * (page - 1));
       res.json({ users, page, pages: Math.ceil(count / pageSize) });
     }
-
-    res.json(users);
   } else {
     const count = await User.count();
 
