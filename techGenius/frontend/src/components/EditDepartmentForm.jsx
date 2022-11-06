@@ -146,8 +146,8 @@ function EditDepartmentForm() {
                 value={formValues.status}
                 onChange={handleChange}
               >
-                <option>active</option>
-                <option>deactive</option>
+                <option value='active'>Active</option>
+                <option value='deactive'>Deactive</option>
               </select>
               <p className='mt-4 text-error'>{formErrors.status}</p>
             </div>
