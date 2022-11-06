@@ -108,6 +108,7 @@ const Login = () => {
         >
           Login
         </button>
+        {error && <p className='text-error mt-4 text-xl text-bold'>{error}</p>}
       </div>
     </div>
   );
