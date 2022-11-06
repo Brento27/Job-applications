@@ -12,6 +12,7 @@ const Login = () => {
 
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,6 +27,12 @@ const Login = () => {
       } else {
         navigate(`/employee/edit/${userInfo._id}`);
       }
+    } else {
+      if (Object.keys(formErrors).length === 0 && submitted) {
+        dispatch(login(formValues.email, formValues.password));
+      } else {
+        setSubmitted(false);
+      }
     }
   }, [userInfo, formErrors]);
 
@@ -37,9 +44,7 @@ const Login = () => {
 
   const submitHandler = (e) => {
     setFormErrors(validate(formValues));
-    if (formErrors !== undefined) {
-      dispatch(login(formValues.email, formValues.password));
-    }
+    setSubmitted(true);
     e.preventDefault();
   };
 
@@ -54,7 +59,7 @@ const Login = () => {
     if (!values.password) {
       errors.password = 'Password is required!';
     } else if (values.password.length < 4) {
-      errors.password = 'Password must be atleast 6 characters';
+      errors.password = 'Password must be atleast 6 characters long';
     } else if (values.password.length > 12) {
       errors.password = 'Password may not have more that 12 characters';
     }
