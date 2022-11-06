@@ -29,7 +29,7 @@ function EditDepartment() {
       <NavBar />
       <div className='px-6 h-full flex gap-4'>
         <Menu />
-        <div className='w-full h-full'>
+        <div className='w-full h-full border-2 border-primary rounded-2xl p-6 mb-4 bg-white'>
           <p className='font-bold text-3xl'>Edit Departments</p>
           <EditDepartmentForm />
         </div>

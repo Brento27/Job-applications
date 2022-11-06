@@ -55,63 +55,65 @@ function EmployeeListTable() {
   return loading || loadingRegister || loadingUserUpdate ? (
     <Loader />
   ) : usersFiltered[0] ? (
-    <table className='table w-full mb-6'>
-      <thead>
-        <tr>
-          <th></th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Telephone Number</th>
-          <th>Email Address</th>
-          <th>Manager</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {usersFiltered?.map((user) => {
-          return (
-            <tr key={user._id}>
-              <td>
-                <div className='flex gap-2'>
-                  <Link to={`/employee/edit/${user._id}`}>
-                    <button className='btn btn-primary btn-outline'>
-                      <FaEdit />
-                    </button>
-                  </Link>
-                </div>
-              </td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.telephoneNumber}</td>
-              <td>{user.email}</td>
-
-              {user.isManager !== true ? (
+    <div className='border-2 rounded-2xl border-primary p-1 mb-6 bg-white'>
+      <table className='table w-full'>
+        <thead>
+          <tr>
+            <th></th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Telephone Number</th>
+            <th>Email Address</th>
+            <th>Manager</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {usersFiltered?.map((user) => {
+            return (
+              <tr key={user._id}>
                 <td>
-                  {user.department.manager.firstName +
-                    ' ' +
-                    user.department.manager.lastName}
+                  <div className='flex gap-2 items-center justify-center'>
+                    <Link to={`/employee/edit/${user._id}`}>
+                      <button className='btn btn-primary btn-outline'>
+                        <FaEdit />
+                      </button>
+                    </Link>
+                  </div>
                 </td>
-              ) : (
-                <td></td>
-              )}
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.telephoneNumber}</td>
+                <td>{user.email}</td>
 
-              <td>
-                <button
-                  className={`btn ${
-                    user.status === 'active' ? 'btn-success' : 'btn-error'
-                  } rounded-full`}
-                  value={user._id}
-                  type='submit'
-                  onClick={(e) => submitHandler(e)}
-                >
-                  {user.status}
-                </button>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+                {user.isManager !== true ? (
+                  <td>
+                    {user.department.manager.firstName +
+                      ' ' +
+                      user.department.manager.lastName}
+                  </td>
+                ) : (
+                  <td></td>
+                )}
+
+                <td>
+                  <button
+                    className={`btn ${
+                      user.status === 'active' ? 'btn-success' : 'btn-error'
+                    } rounded-full`}
+                    value={user._id}
+                    type='submit'
+                    onClick={(e) => submitHandler(e)}
+                  >
+                    {user.status}
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   ) : (
     <NoData />
   );

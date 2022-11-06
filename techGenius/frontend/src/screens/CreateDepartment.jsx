@@ -5,6 +5,7 @@ import CreateDepartmentForm from '../components/CreateDepartmentForm';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
 import { listUsers } from '../actions/userActions';
+import Loader from '../components/Loader';
 
 function CreateDepartment() {
   const navigate = useNavigate();
@@ -13,6 +14,9 @@ function CreateDepartment() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userList = useSelector((state) => state.userList);
+  const { loading } = userList;
+
   useEffect(() => {
     if (userInfo && userInfo.isManager) {
       dispatch(listUsers());
@@ -20,12 +24,14 @@ function CreateDepartment() {
       navigate('/login');
     }
   }, [dispatch, userInfo]);
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div>
       <NavBar />
       <div className='px-6 h-full flex gap-4'>
         <Menu />
-        <div className='w-full h-full'>
+        <div className='w-full h-full border-2 border-primary rounded-2xl p-6 mb-4 bg-white'>
           <p className='font-bold text-3xl'>Create Departments</p>
           <CreateDepartmentForm />
         </div>

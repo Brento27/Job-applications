@@ -96,7 +96,7 @@ function EditEmployeeForm() {
     <Loader />
   ) : (
     <>
-      <div>
+      <div className='ml-8'>
         <div className='mt-6 flex items-center justify-between'>
           <p className='text-2xl'>*Name</p>
           <input

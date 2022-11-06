@@ -46,11 +46,11 @@ function DepartmentListTable() {
     <Loader />
   ) : departmentsfiltered[0] ? (
     <div className='overflow-x-auto my-4 px-6'>
-      <div className='border-2 border-primary rounded-xl p-1 mb-4 '>
+      <div className='border-2 border-primary rounded-2xl p-1 mb-4 bg-white'>
         <table className='table w-full'>
           <thead>
             <tr>
-              <th></th>
+              <th className='w-24'></th>
               <th>Name</th>
               <th>Manager</th>
               <th>Status</th>
@@ -61,7 +61,7 @@ function DepartmentListTable() {
               return (
                 <tr key={department._id}>
                   <td>
-                    <div className='flex gap-2'>
+                    <div className='flex gap-2 justify-center items-center'>
                       <Link to={`/department/edit/${department._id}`}>
                         <button className='btn btn-primary btn-outline'>
                           <FaEdit />

@@ -122,7 +122,7 @@ function EditDepartmentForm() {
                 {department.manager ? department.manager.firstName : ''}{' '}
                 {department.manager ? department.manager.lastName : ''}
               </option>
-              {users ? (
+              {users[0] ? (
                 users
                   .filter((user) => user._id != department.manager._id)
                   .map((user) => {

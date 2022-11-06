@@ -5,7 +5,6 @@ import { registerDepartment } from '../actions/departmentActions';
 import { updateUser } from '../actions/userActions';
 import { BiSave } from 'react-icons/bi';
 import { TiCancel } from 'react-icons/ti';
-import Loader from './Loader';
 import { useEffect } from 'react';
 
 function CreateDepartmentForm() {
@@ -22,7 +21,7 @@ function CreateDepartmentForm() {
   const [submitted, setSubmitted] = useState(false);
 
   const userList = useSelector((state) => state.userList);
-  const { users, loading } = userList;
+  const { users } = userList;
   const departmentRegister = useSelector((state) => state.departmentRegister);
   const { departmentInfo } = departmentRegister;
 
@@ -80,11 +79,9 @@ function CreateDepartmentForm() {
     }
   }, [formErrors]);
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <>
-      <div>
+      <div className='ml-8'>
         <div className='mt-6 flex items-center justify-between'>
           <p className='text-2xl'>*Name</p>
           <div>
