@@ -59,9 +59,9 @@ function CreateDepartmentForm() {
     if (!values.name) {
       errors.name = 'Name is required!';
     } else if (values.name.length < 3) {
-      errors.name = 'Name must be atleast 3 characters long';
+      errors.name = 'Name must be atleast 3 characters long!';
     } else if (values.name.length > 15) {
-      errors.name = 'Name may not be more than 15 characters';
+      errors.name = 'Name may not be more than 15 characters!';
     }
     if (!values.manager) {
       errors.manager = 'Manager is required!';
