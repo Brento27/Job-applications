@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.cjs",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js",
-    "data:import": "node seeder.js",
+    "start": "nodemon server.cjs",
+    "data:import": "node seeder.cjs",
     "data:destroy": "node seeder -d"
   },
   "keywords": [],

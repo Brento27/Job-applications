@@ -67,7 +67,7 @@ const Login = () => {
     if (!values.password) {
       errors.password = 'Password is required!';
     } else if (values.password.length < 4) {
-      errors.password = 'Password must be atleast 6 characters long';
+      errors.password = 'Password must be atleast 4 characters long';
     } else if (values.password.length > 12) {
       errors.password = 'Password may not have more that 12 characters';
     }

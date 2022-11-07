@@ -1,10 +1,10 @@
-import connectDB from './config/db.js';
+import connectDB from './config/db.cjs';
 import express from 'express';
-import userRoutes from './routes/userRoutes.js';
-import departmentRoutes from './routes/departmentRoutes.js';
+import userRoutes from './routes/userRoutes.cjs';
+import departmentRoutes from './routes/departmentRoutes.cjs';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { errorHandler, notFound } from './middleware/errorMiddleWare1.js';
+import { errorHandler, notFound } from './middleware/errorMiddleWare1.cjs';
 
 dotenv.config();
 

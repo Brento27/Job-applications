@@ -163,7 +163,6 @@ function EditEmployeeForm() {
     <Loader />
   ) : (
     <>
-      <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
       <div className='ml-8'>
         <div className='mt-6 flex items-center justify-between'>
           <p className='text-2xl'>*Name</p>
