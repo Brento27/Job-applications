@@ -1,6 +1,6 @@
 {
   "name": "hradmin",
-  "homepage": "https://www.hr-admin.codingbybrent.co.za/",
+  "homepage": "https://www.hr-admin.codingbybrent.co.za",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://127.0.0.1:5000",
