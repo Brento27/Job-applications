@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import EditDepartmentForm from '../components/EditDepartmentForm';
 import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
+import { USER_REGISTER_RESET } from '../constants/userConstants';
+import { DEPARTMENT_REGISTER_RESET } from '../constants/departmentConstants';
 
 function EditDepartment() {
   const navigate = useNavigate();
@@ -23,6 +25,12 @@ function EditDepartment() {
     } else {
       navigate('/login');
     }
+    dispatch({
+      type: USER_REGISTER_RESET,
+    });
+    dispatch({
+      type: DEPARTMENT_REGISTER_RESET,
+    });
   }, [dispatch, userInfo]);
   return (
     <div>

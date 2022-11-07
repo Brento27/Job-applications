@@ -18,6 +18,7 @@ import {
   DEPARTMENT_UPDATE_SUCCESS,
   DEPARTMENT_UPDATE_FAIL,
   DEPARTMENT_UPDATE_RESET,
+  DEPARTMENT_REGISTER_RESET,
 } from '../constants/departmentConstants';
 
 export const departmentRegisterReducer = (state = {}, action) => {
@@ -28,6 +29,8 @@ export const departmentRegisterReducer = (state = {}, action) => {
       return { loadingDepartment: false, departmentInfo: action.payload };
     case DEPARTMENT_REGISTER_FAIL:
       return { loadingDepartment: false, error: action.payload };
+    case DEPARTMENT_REGISTER_RESET:
+      return {};
     default:
       return state;
   }

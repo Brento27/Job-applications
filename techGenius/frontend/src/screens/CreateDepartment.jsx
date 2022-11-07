@@ -6,6 +6,8 @@ import Menu from '../components/Menu';
 import NavBar from '../components/NavBar';
 import { listUsers } from '../actions/userActions';
 import Loader from '../components/Loader';
+import { USER_REGISTER_RESET } from '../constants/userConstants';
+import { DEPARTMENT_REGISTER_RESET } from '../constants/departmentConstants';
 
 function CreateDepartment() {
   const navigate = useNavigate();
@@ -23,6 +25,12 @@ function CreateDepartment() {
     } else {
       navigate('/login');
     }
+    dispatch({
+      type: USER_REGISTER_RESET,
+    });
+    dispatch({
+      type: DEPARTMENT_REGISTER_RESET,
+    });
   }, [dispatch, userInfo]);
   return loading ? (
     <Loader />

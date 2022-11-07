@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
+import { USER_REGISTER_RESET } from '../constants/userConstants';
+import { DEPARTMENT_REGISTER_RESET } from '../constants/departmentConstants';
 
 const Login = () => {
   const initialValues = {
@@ -34,6 +36,12 @@ const Login = () => {
         setSubmitted(false);
       }
     }
+    dispatch({
+      type: USER_REGISTER_RESET,
+    });
+    dispatch({
+      type: DEPARTMENT_REGISTER_RESET,
+    });
   }, [userInfo, formErrors]);
 
   const handleChange = (e) => {

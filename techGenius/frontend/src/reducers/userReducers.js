@@ -29,6 +29,7 @@ import {
   USER_LIST_FILTER_SUCCESS,
   USER_LIST_FILTER_FAIL,
   USER_LIST_FILTER_RESET,
+  USER_REGISTER_RESET,
 } from '../constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
@@ -51,9 +52,11 @@ export const userRegisterReducer = (state = {}, action) => {
     case USER_REGISTER_REQUEST:
       return { loadingRegister: true };
     case USER_REGISTER_SUCCESS:
-      return { loadingRegister: false, userInfo: action.payload };
+      return { loadingRegister: false, userInfoRegister: action.payload };
     case USER_REGISTER_FAIL:
       return { loadingRegister: false, error: action.payload };
+    case USER_REGISTER_RESET:
+      return {};
     case USER_LOGOUT:
       return {};
     default:

@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { listUsers } from '../actions/userActions';
 import { listDepartments } from '../actions/departmentActions';
+import { USER_REGISTER_RESET } from '../constants/userConstants';
+import { DEPARTMENT_REGISTER_RESET } from '../constants/departmentConstants';
 
 function CreateEmployee() {
   const navigate = useNavigate();
@@ -21,6 +23,12 @@ function CreateEmployee() {
     } else {
       navigate('/login');
     }
+    dispatch({
+      type: USER_REGISTER_RESET,
+    });
+    dispatch({
+      type: DEPARTMENT_REGISTER_RESET,
+    });
   }, [dispatch, userInfo, navigate]);
   return (
     <div>

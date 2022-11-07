@@ -4,6 +4,8 @@ import NavBar from '../components/NavBar';
 import { useDispatch, useSelector } from 'react-redux';
 import EditEmployeeForm from '../components/EditEmployeeForm';
 import { listDepartments } from '../actions/departmentActions';
+import { USER_REGISTER_RESET } from '../constants/userConstants';
+import { DEPARTMENT_REGISTER_RESET } from '../constants/departmentConstants';
 
 function EditEmployee() {
   const dispatch = useDispatch();
@@ -13,6 +15,12 @@ function EditEmployee() {
 
   useEffect(() => {
     dispatch(listDepartments());
+    dispatch({
+      type: USER_REGISTER_RESET,
+    });
+    dispatch({
+      type: DEPARTMENT_REGISTER_RESET,
+    });
   }, [dispatch, userInfo]);
   return (
     <div>
