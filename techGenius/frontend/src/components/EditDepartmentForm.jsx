@@ -79,15 +79,17 @@ function EditDepartmentForm() {
       );
       navigate('/department/list');
     } else {
-      setFormValues({
-        ...formValues,
-        name: department.name,
-        manager: department.manager,
-        status: department.status,
-      });
-      setSubmitted(false);
+      if (department._id) {
+        setFormValues({
+          ...formValues,
+          name: department.name,
+          manager: department.manager,
+          status: department.status,
+        });
+        setSubmitted(false);
+      }
     }
-  }, [dispatch, department]);
+  }, [dispatch, department, formErrors]);
 
   return loading || loadingDepartment ? (
     <Loader />

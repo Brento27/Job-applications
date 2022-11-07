@@ -11,11 +11,27 @@ import Menu from './Menu';
 function EmployeeListFilter() {
   const dispatch = useDispatch();
 
-  const [activeFilter, setActiveFilter] = useState('');
-  const [departmentFilter, setDepartmentFilter] = useState({ _id: '' });
-  const [managerFilter, setManagerFilter] = useState({ _id: '' });
-  const [pageSizeFilter, setPageSizeFilter] = useState(10);
-  const [currentPageFilter, setCurrentPageFilter] = useState(1);
+  const initialValues = {
+    activeFilter: '',
+    departmentFilter: { _id: '' },
+    managerFilter: { _id: '' },
+    pageSizeFilter: 10,
+    currentPageFilter: 1,
+    keyword: '',
+  };
+  const [filterValues, setfilterValues] = useState(initialValues);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'departmentFilter') {
+      setfilterValues({ ...filterValues, [name]: JSON.parse(value) });
+    } else if (name === 'managerFilter') {
+      setfilterValues({ ...filterValues, [name]: JSON.parse(value) });
+    } else {
+      setfilterValues({ ...filterValues, [name]: value });
+    }
+    e.preventDefault();
+  };
 
   const departmentList = useSelector((state) => state.departmentList);
   const { departments } = departmentList;
@@ -30,51 +46,60 @@ function EmployeeListFilter() {
     await dispatch(
       filterListUsers(
         1,
-        pageSizeFilter,
-        activeFilter,
-        departmentFilter._id,
-        managerFilter._id
+        filterValues.pageSizeFilter,
+        filterValues.activeFilter,
+        filterValues.departmentFilter._id,
+        filterValues.managerFilter._id
       )
     );
   };
   const resetTable = async () => {
-    await dispatch(filterListUsers());
+    await dispatch(filterListUsers(1, filterValues.pageSizeFilter));
+    setfilterValues({
+      ...filterValues,
+      activeFilter: '',
+      departmentFilter: { _id: '' },
+      managerFilter: { _id: '' },
+    });
   };
 
   const selectCurrentPage = async (currentPage) => {
-    setCurrentPageFilter(currentPage);
-
+    setfilterValues({ ...filterValues, currentPageFilter: currentPage });
+    console.log(currentPage);
     await dispatch(
       filterListUsers(
         currentPage,
-        pageSizeFilter,
-        activeFilter,
-        departmentFilter._id,
-        managerFilter._id
+        filterValues.pageSizeFilter,
+        filterValues.activeFilter,
+        filterValues.departmentFilter._id,
+        filterValues.managerFilter._id,
+        filterValues.keyword
       )
     );
   };
   const selectCurrentPageSize = async (pageSize) => {
-    setPageSizeFilter(pageSize);
+    setfilterValues({ ...filterValues, pageSizeFilter: pageSize });
 
     await dispatch(
       filterListUsers(
         1,
         pageSize,
-        activeFilter,
-        departmentFilter._id,
-        managerFilter._id
+        filterValues.activeFilter,
+        filterValues.departmentFilter._id,
+        filterValues.managerFilter._id,
+        filterValues.keyword
       )
     );
   };
   const handleSearch = async (keyword) => {
+    setfilterValues({ ...filterValues, keyword: keyword });
     await dispatch(
       filterListUsers(
         1,
-        pageSizeFilter,
-        activeFilter,
-        departmentFilter._id,
-        managerFilter._id,
+        filterValues.pageSizeFilter,
+        filterValues.activeFilter,
+        filterValues.departmentFilter._id,
+        filterValues.managerFilter._id,
         keyword
       )
     );
@@ -92,9 +117,9 @@ function EmployeeListFilter() {
             <p>Status</p>
             <select
               className='select select-bordered border-primary w-80 border-2 bg-white'
-              onChange={(e) => {
-                setActiveFilter(e.target.value);
-              }}
+              onChange={handleChange}
+              defaultValue=''
+              name='activeFilter'
             >
               <option value=''>All</option>
               <option value='active'>Active</option>
@@ -105,11 +130,11 @@ function EmployeeListFilter() {
             <p>Departments</p>
             <select
               className='select select-bordered border-primary w-80 border-2 bg-white'
-              onChange={(e) => {
-                setDepartmentFilter(JSON.parse(e.target.value));
-              }}
+              onChange={handleChange}
+              defaultValue=''
+              name='departmentFilter'
             >
-              <option value=''>All</option>
+              <option value={JSON.stringify('')}>All</option>
               {departments?.map((department) => {
                 return (
                   <option
@@ -125,12 +150,12 @@ function EmployeeListFilter() {
           <div className='flex gap-6 items-center justify-between'>
             <p>Manager</p>
             <select
-              onChange={(e) => {
-                setManagerFilter(JSON.parse(e.target.value));
-              }}
+              onChange={handleChange}
               className='select select-bordered max-w-xs border-primary w-80 border-2 bg-white'
+              defaultValue=''
+              name='managerFilter'
             >
-              <option value=''>All</option>
+              <option value={JSON.stringify('')}>All</option>
               {users
                 ?.filter((user) => user.isManager === true)
                 .map((user) => {
