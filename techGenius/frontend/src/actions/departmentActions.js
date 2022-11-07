@@ -33,7 +33,7 @@ export const registerDepartment =
       };
 
       const { data } = await axios.post(
-        '/api/departments',
+        'https://hradmin-backend.vercel.app/api/departments',
         { name, manager: manager, status },
         config
       );
@@ -69,7 +69,10 @@ export const getDepartmentDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/departments/${id}`, config);
+    const { data } = await axios.get(
+      `https://hradmin-backend.vercel.app/api/departments/${id}`,
+      config
+    );
 
     dispatch({
       type: DEPARTMENT_DETAILS_SUCCESS,
@@ -106,7 +109,10 @@ export const listDepartments = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/api/departments`, config);
+    const { data } = await axios.get(
+      `https://hradmin-backend.vercel.app/api/departments`,
+      config
+    );
 
     dispatch({
       type: DEPARTMENT_LIST_SUCCESS,
@@ -145,7 +151,7 @@ export const listDepartmentsfilter =
       };
 
       const { data } = await axios.get(
-        `/api/departments/query?currentpage=${currentPage}&pagesize=${pageSize}&status=${status}&search=${search}`,
+        `https://hradmin-backend.vercel.app/api/departments/query?currentpage=${currentPage}&pagesize=${pageSize}&status=${status}&search=${search}`,
         config
       );
 
@@ -186,7 +192,7 @@ export const updateDepartment = (department) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/departments/${department._id}`,
+      `https://hradmin-backend.vercel.app/api/departments/${department._id}`,
       department,
       config
     );
